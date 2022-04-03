@@ -1,0 +1,14 @@
+<template lang="pug">
+.card.text-center
+  .card-header Bootstrap 4 card example
+  .card-body
+    .card-title Hello World, this is PugHtml
+    i.fa.fa-home.fa-2x.text-primary
+  .card-footer.text-muted powered by Bibooki
+</template>
+
+<script>
+export default {
+  name: "AddFeedBack",
+};
+</script>
