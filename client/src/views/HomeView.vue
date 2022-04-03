@@ -12,8 +12,8 @@
 
 <script>
 // @ is an alias to /src
-import Sidebar from "@/components/Sidebar.vue";
-import AddFeedBack from "@/components/AddFeedback.vue";
+import Sidebar from "@/components/Home/Sidebar.vue";
+import AddFeedBack from "@/components/Home/AddFeedback.vue";
 import Feedback from "@/components/Feedback.vue";
 
 export default {
