@@ -1,10 +1,16 @@
 <template lang="pug">
-.card.text-center
-  .card-header Bootstrap 4 card example
-  .card-body
-    .card-title Hello World, this is PugHtml
-    i.fa.fa-home.fa-2x.text-primary
-  .card-footer.text-muted powered by Bibooki
+.addFeedBack
+  .suggestions
+      img(src="@/assets/bulb.png")
+      .count 6 Suggestion
+  .sort
+    span Sort by:
+    select
+      option Most Upvotes
+      option Most Popular
+      option Newest
+  router-link(to="/create",class="add")
+    button &plus; Add Feedback
 </template>
 
 <script>
@@ -12,3 +18,50 @@ export default {
   name: "AddFeedBack",
 };
 </script>
+
+<style lang="less" scoped>
+.addFeedBack {
+  margin-bottom: 2rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-radius: 0.5rem;
+  justify-content: space-between;
+  padding: 1.5rem 1rem 1.5rem 2rem;
+  color: #fff;
+  background-color: #373e68;
+  .suggestions {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    img {
+      width: 40px;
+      filter: invert(1);
+    }
+  }
+  .sort {
+    span {
+      opacity: 0.8;
+    }
+    select {
+      margin-left: 10px;
+      font-weight: 100x;
+      background-color: transparent;
+      option {
+        padding: 10px;
+        background-color: #222;
+      }
+    }
+  }
+  .add {
+    button {
+      background-color: #ae1feb;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  }
+}
+</style>

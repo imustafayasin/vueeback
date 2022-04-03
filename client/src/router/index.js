@@ -6,6 +6,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/create',
+    name: 'Create Feedback',
+    component: () => import('../views/CreateFeedback.vue')
   }
 ]
 
