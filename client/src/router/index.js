@@ -11,6 +11,11 @@ const routes = [
     path: '/create',
     name: 'Create Feedback',
     component: () => import('../views/CreateFeedback.vue')
+  },
+  {
+    path: '/detail/:id',
+    name: 'Feedback Detail',
+    component: () => import('../views/FeedbackDetail.vue')
   }
 ]
 
@@ -18,5 +23,4 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
 export default router
