@@ -30,21 +30,7 @@
             "user_id": 4,
             "name": "Ryan Welles",
             "username": "voyager.344",
-            "message": "Good point !",
-            "replies": [
-              {
-                "user_id": 3,
-                "name": "Anne Valentine",
-                "username": "annev1990",
-                "message": "While waiting for dark mode,"
-              },
-              {
-                "user_id": 4,
-                "name": "Ryan Welles",
-                "username": "voyager.344",
-                "message": "Good point !"
-              }
-            ]
+            "message": "Good point !"
           }
         ]
       }
