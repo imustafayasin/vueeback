@@ -6,9 +6,11 @@
         Go Back</router-link
       >
     </div>
+
     <form action="">
       <div class="icon">&plus;</div>
-      <h2 class="form__title">Create New FeedBack</h2>
+      <h2 v-if="isUpdate" class="form__title">Update New FeedBack</h2>
+      <h2 v-else class="form__title">Create New FeedBack</h2>
       <div class="fields">
         <div class="field">
           <label for="">Feedback Title</label>
@@ -42,6 +44,14 @@
 <script>
 export default {
   name: "Create Feed Back",
+  data(){
+    return{
+      isUpdate : false
+    }
+  },
+  mounted() {
+    this.isUpdate = this.$route.path.includes("update") ? true : false;
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -105,7 +115,7 @@ form {
         border-radius: 0.5rem;
         background-color: #f7f8fd;
         font-size: 1rem;
-        padding:1rem;
+        padding: 1rem;
         margin-top: 0.5rem;
         min-height: 50px;
       }
