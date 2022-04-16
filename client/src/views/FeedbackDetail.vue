@@ -5,9 +5,10 @@
         <img src="@/assets/navigate-up-arrow.png" alt="" />
         Go Back</router-link
       >
+      <router-link :to="`/update/`+feedback.id" class="edit">Edit Feedback</router-link>
     </div>
     <Feedback :feedback="feedback" />
-    <div class="comments-wrapper">
+    <div v-if="totalComment > 0" class="comments-wrapper">
       <div class="header">
         <h2 class="comment_count">{{ totalComment }} comments</h2>
       </div>
@@ -99,7 +100,9 @@
   }
 }
 .header {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 3rem;
   img {
     width: 12px;
@@ -111,6 +114,13 @@
     padding: 1rem;
     border-radius: 0.5rem;
     background: #fff;
+  }
+  .edit {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    background: #4660e7;
+    color: #fff;
   }
 }
 </style>
@@ -125,8 +135,9 @@ export default {
   },
   data() {
     return {
-      feedback: "",
+      feedback: {},
       quiz: "asd",
+      totalComment:0
     };
   },
   mounted() {
@@ -134,12 +145,6 @@ export default {
     this.$store.dispatch("FETCH_FEEDBACKS");
     this.$store.dispatch("FETCH_FEEDBACK", Number(id));
     this.feedback = this.$store.state.feedback;
-    this.totalComment = 0;
-    this.feedback.comments.reduce(
-      (a, b) => (this.totalComment += a.replies.length + b.replies.length)
-    );
-    this.totalComment += this.feedback.comments.length;
-    console.log(this.totalComment);
   },
 };
 </script>

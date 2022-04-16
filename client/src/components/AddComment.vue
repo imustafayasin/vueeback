@@ -1,5 +1,5 @@
 <template lang="pug">
-form
+div.addComment
     label Add comment
     textarea( placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="5")
     div.actions
@@ -9,7 +9,7 @@ form
 </template>
 
 <style lang="less" scoped>
-form {
+div.addComment {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;

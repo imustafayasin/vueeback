@@ -29,7 +29,7 @@ export default {
   border-radius: 0.8rem;
   cursor: pointer;
   &:hover {
-    box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   }
   &:not(:last-child) {
     margin-bottom: 1rem;

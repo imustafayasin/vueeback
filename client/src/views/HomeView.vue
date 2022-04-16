@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      feedbacks: null,
+      feedbacks: [],
     };
   },
   methods: {

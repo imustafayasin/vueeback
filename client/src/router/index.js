@@ -13,6 +13,11 @@ const routes = [
     component: () => import('../views/CreateFeedback.vue')
   },
   {
+    path: '/update/:id',
+    name: 'Update Feedback',
+    component: () => import('../views/CreateFeedback.vue')
+  },
+  {
     path: '/detail/:id',
     name: 'Feedback Detail',
     component: () => import('../views/FeedbackDetail.vue')
