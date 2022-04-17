@@ -5,7 +5,9 @@
         <img src="@/assets/navigate-up-arrow.png" alt="" />
         Go Back</router-link
       >
-      <router-link :to="`/update/`+feedback.id" class="edit">Edit Feedback</router-link>
+      <router-link :to="`/update/` + feedback.id" class="edit"
+        >Edit Feedback</router-link
+      >
     </div>
     <Feedback :feedback="feedback" />
     <div v-if="totalComment > 0" class="comments-wrapper">
@@ -137,12 +139,11 @@ export default {
     return {
       feedback: {},
       quiz: "asd",
-      totalComment:0
+      totalComment: 0,
     };
   },
   mounted() {
     let {id} = this.$route.params;
-    this.$store.dispatch("FETCH_FEEDBACKS");
     this.$store.dispatch("FETCH_FEEDBACK", Number(id));
     this.feedback = this.$store.state.feedback;
   },
