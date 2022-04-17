@@ -8,21 +8,25 @@
     </div>
 
     <form action="">
-      <div class="icon">&plus;</div>
-      <h2 v-if="isUpdate" class="form__title">Update New FeedBack</h2>
+      <div v-if="!isUpdate" class="icon">&plus;</div>
+      <div v-else class="icon">
+        <img src="@/assets/document-editor.png" alt="" />
+      </div>
+      <h2 v-if="isUpdate" class="form__title">Update "{{feedback.title}}"</h2>
       <h2 v-else class="form__title">Create New FeedBack</h2>
       <div class="fields">
         <div class="field">
           <label for="">Feedback Title</label>
           <small>Add a short, descriptiove headline</small>
-          <input type="text" />
+          <input type="text" :value="feedback.title" />
         </div>
         <div class="field">
           <label for="">Category</label>
           <small>Choose a category for your feedback</small>
-          <select name="" id="">
-            <option value="">Feature</option>
-            <option value="">Live</option>
+          <select name="" id="" va v-model="feedback.category">
+            <option value="Feature">Feature</option>
+            <option value="Live">Live</option>
+            <option value="Enhancement">Live</option>
           </select>
         </div>
         <div class="field">
@@ -31,7 +35,7 @@
             >Include any specific, comments on what should be improved, added,
             etc.</small
           >
-          <textarea name="" id="" cols="30" rows="10"></textarea>
+          <textarea name="" id="" cols="30" rows="10">{{feedback.description}}</textarea>
         </div>
       </div>
       <div class="buttons">
@@ -44,13 +48,19 @@
 <script>
 export default {
   name: "Create Feed Back",
-  data(){
-    return{
-      isUpdate : false
-    }
+  data() {
+    return {
+      isUpdate: false,
+      feedback: {},
+    };
   },
   mounted() {
     this.isUpdate = this.$route.path.includes("update") ? true : false;
+    let {id} = this.$route.params;
+    if (id) {
+      this.$store.dispatch("FETCH_FEEDBACK", Number(id));
+      this.feedback = this.$store.state.feedback;
+    }
   },
 };
 </script>
@@ -94,6 +104,10 @@ form {
     position: absolute;
     border-radius: 50%;
     background: linear-gradient(90deg, #6e98f4 0%, #a142f2 35%, #dc568c 100%);
+    img {
+      width: 50%;
+      filter: invert(1);
+    }
   }
   .fields {
     .field {

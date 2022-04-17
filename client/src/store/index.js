@@ -21,6 +21,7 @@ export default createStore({
       this.commit('SET_FEEDBACKS', feedBacks)
     },
     FETCH_FEEDBACK(state, feedback_id) {
+      this.dispatch("FETCH_FEEDBACKS")
       let currentFeedback = this.state.feedbacks.find(f => f.id == feedback_id);
       this.commit('SET_FEEDBACK', currentFeedback)
     }
