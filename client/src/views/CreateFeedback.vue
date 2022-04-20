@@ -12,7 +12,7 @@
       <div v-else class="icon">
         <img src="@/assets/document-editor.png" alt="" />
       </div>
-      <h2 v-if="isUpdate" class="form__title">Update "{{feedback.title}}"</h2>
+      <h2 v-if="isUpdate" class="form__title">Update "{{ feedback.title }}"</h2>
       <h2 v-else class="form__title">Create New FeedBack</h2>
       <div class="fields">
         <div class="field">
@@ -35,7 +35,7 @@
             >Include any specific, comments on what should be improved, added,
             etc.</small
           >
-          <textarea name="" id="" cols="30" rows="10">{{feedback.description}}</textarea>
+          <textarea name="" id="" cols="30" rows="10" v-model="feedback.description"></textarea>
         </div>
       </div>
       <div class="buttons">
