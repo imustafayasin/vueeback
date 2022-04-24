@@ -129,6 +129,8 @@
 <script>
 import Feedback from "@/components/Feedback.vue";
 import AddComment from "@/components/AddComment.vue";
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: "Feedback Details",
   components: {
@@ -142,7 +144,11 @@ export default {
       totalComment: 0,
     };
   },
+  methods:{
+    ...mapActions(['REGISTER'])
+  },
   mounted() {
+    this.ADD_LIST()
     let {id} = this.$route.params;
     this.$store.dispatch("FETCH_FEEDBACK", Number(id));
     this.feedback = this.$store.state.feedback;
