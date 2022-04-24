@@ -1,11 +1,14 @@
 
-const { Identity } = require("../database/models");
+const database = require("../database/connection");
+database.connect();
 
+
+const { Identity } = require("../database/models");
 //to do add identity
+
 const register = (req, res, next) => {
     console.log("register a ulaşıldı");
-    console.log(req.body)
-    res.json({ message: "Selam" });
+    Identity.create(sreq.body)
 }
 
 module.exports = {
