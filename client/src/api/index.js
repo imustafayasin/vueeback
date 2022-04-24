@@ -4,22 +4,23 @@ const BASE_URL = "http://localhost:3000";
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
-const request = async (method, path, data) => {
-    axios({
+const request = (method, path, data) => {
+    return axios({
         method,
         url: BASE_URL + path,
         data
     })
-        .then(result => result)
+        .then(result => result.data)
         .catch(result => {
             console.log(result)
             throw result.response
         });
 }
 
+
 export const auth = {
-    login() {
-        return request('POST', '/register', { name: "Yasin" })
+    register(NAME, LASTNAME, EMAIL, PASSWORD) {
+        return request('POST', '/register', { NAME, LASTNAME, EMAIL, PASSWORD })
     }
 }
 
