@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
 import feedBacks from '../assets/dummy_feedback.json'
-import api from '../api/index'
+import * as api from '@/api/index'
 
 export default createStore({
   state: {
     feedbacks: [],
     feedback: {},
-    rgdata: null
+    rgdata: {}
   },
   getters: {
   },
@@ -26,10 +26,12 @@ export default createStore({
       this.commit('SET_FEEDBACKS', feedBacks)
     },
 
-    REGISTER() {
-      return api.auth.login().then(data => {
-        this.commit('COMMIT_REGISTER', data)
-      })
+    REGISTER({ state }, { NAME, LASTNAME, EMAIL, PASSWORD }) {
+      return api.auth.register(NAME, LASTNAME, EMAIL, PASSWORD)
+    },
+
+    LOGIN({state},{EMAIL,PASSWORD}){
+      return api.auth.login(EMAIL,PASSWORD)
     },
 
     FETCH_FEEDBACK(state, feedback_id) {

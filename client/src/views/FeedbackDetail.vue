@@ -6,7 +6,7 @@
         Go Back</router-link
       >
       <router-link :to="`/update/` + feedback.id" class="edit"
-        >Edit Feedback</router-link
+        >Edit Feedback {{ rgdata.message }}</router-link
       >
     </div>
     <Feedback :feedback="feedback" />
@@ -129,7 +129,7 @@
 <script>
 import Feedback from "@/components/Feedback.vue";
 import AddComment from "@/components/AddComment.vue";
-import { mapState, mapActions } from 'vuex'
+import {mapState, mapActions} from "vuex";
 
 export default {
   name: "Feedback Details",
@@ -141,14 +141,14 @@ export default {
     return {
       feedback: {},
       quiz: "asd",
+      rgdata: "a123",
       totalComment: 0,
     };
   },
-  methods:{
-    ...mapActions(['REGISTER'])
+  methods: {
+    ...mapActions(["REGISTER"]),
   },
   mounted() {
-    this.ADD_LIST()
     let {id} = this.$route.params;
     this.$store.dispatch("FETCH_FEEDBACK", Number(id));
     this.feedback = this.$store.state.feedback;
