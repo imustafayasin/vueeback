@@ -21,6 +21,9 @@ const request = (method, path, data) => {
 export const auth = {
     register(NAME, LASTNAME, EMAIL, PASSWORD) {
         return request('POST', '/register', { NAME, LASTNAME, EMAIL, PASSWORD })
+    },
+    login(EMAIL, PASSWORD) {
+        return request('POST', '/login', {EMAIL, PASSWORD })
     }
 }
 

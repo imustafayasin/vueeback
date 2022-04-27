@@ -39,3 +39,38 @@ p {
 .content {
   width: 100%;
 }
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 40;
+}
+
+.notification {
+  position: fixed;
+  --y: -100%;
+  transform: translate(-50%, var(--y));
+  top: 0;
+  left: 50%;
+  z-index: 99999;
+  background: #fff;
+  box-shadow: 2px 4px 6px #0000002b;
+  padding: 12px 20px;
+  border-radius: 3px;
+  transition: 100ms ease-in-out;
+  display: flex;
+  align-items: center;
+  gap:10px;
+  &[show] {
+    --y: 70px;
+  }
+  &.error::before {
+    content: "\e5c9";
+    color: red;
+  }
+  &::before {
+    content: "\e86c";
+    font-family: "Material Symbols Outlined";
+    color: green;
+    font-size: 20px;
+    line-height: 0;
+  }
+}
