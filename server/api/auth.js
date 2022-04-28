@@ -11,16 +11,14 @@ const register = (req, res, next) => {
         req.body.USERNAME = req.body.EMAIL.split("@").shift();
         Identity.create(req.body);
     }
-    res.json({ message: "Successfuly" });
+    res.json({ succes: true, message: "Successfuly" });
 }
 
 const login = (req, res, next) => {
-    console.log(req.body)
     Identity.findOne(req.body, (err, usr) => {
         res.json(usr ? { success: true, message: "Successfully logged in" } : { success: false, message: "Not found" })
     });
-
-}
+};
 
 module.exports = {
     register,
