@@ -40,7 +40,7 @@
             id=""
             cols="30"
             rows="10"
-            v-model="feedback.DESCRIPTION"
+            v-model="feedback.DETAIL"
           ></textarea>
         </div>
       </div>

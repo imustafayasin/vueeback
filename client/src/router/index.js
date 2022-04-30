@@ -46,7 +46,13 @@ const routes = [
     name: 'Account',
     beforeEnter: requireAuth,
     component: () => import('../views/Account.vue')
-  }
+  },
+  {
+    path: '/myfeedbacks',
+    name: 'My Feedback',
+    beforeEnter: requireAuth,
+    component: () => import('../views/MyFeedbacks.vue')
+  },
 ]
 
 const router = createRouter({

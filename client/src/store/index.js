@@ -6,6 +6,7 @@ export default createStore({
   state: {
     feedbacks: [],
     feedback: {},
+    userFeedbacks: [],
     rgdata: {},
     user: {},
     token: null
@@ -39,6 +40,9 @@ export default createStore({
     SET_AUTH_USER(state, data) {
       if (!data) return
       state.user = data
+    },
+    USER_FEEDBACKS(state, userfeedbacks) {
+      state.userFeedbacks = userfeedbacks
     }
   },
   actions: {
@@ -71,6 +75,10 @@ export default createStore({
 
     CREATE_FEEDBACK({ commit }, data) {
       return api.feedback.create(data)
+    },
+
+    FETCH_USER_FEEDBACKS({ commit }) {
+      return api.feedback.getUserFeedbacks().then(userFeedbacks => commit('USER_FEEDBACKS', userFeedbacks))
     }
 
 
