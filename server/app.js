@@ -20,6 +20,8 @@ app.post('/authuser', verifyToken, auth.getAuthUser)
 
 app.post('/feedback/create', verifyToken, feedback.create)
 
+app.post('/feedback/getByUser', verifyToken, feedback.getByUser)
+
 app.post('/register', auth.register)
 app.listen(3000, function () {
     console.log("3000 de ayağa kalktı", "http://localhost:3000");

@@ -41,6 +41,9 @@ export const auth = {
 export const feedback = {
     create(data) {
         return request("POST", "/feedback/create", data)
+    },
+    getUserFeedbacks() {
+        return request("POST", "/feedback/getByUser")
     }
 }
 

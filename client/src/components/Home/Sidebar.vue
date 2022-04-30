@@ -3,7 +3,7 @@
 .sidebar
   .sidebar__cart.zero(v-if="isLogin")
     router-link(to="/account") My Account
-    a(href="/myfeedbacks") My Feedbacks
+    router-link(to="/myfeedbacks") My Feedbacks
     a(href="/logout" @click="logout($event)") Log out
   .sidebar__cart.one
     h2 Frontend Mentor
