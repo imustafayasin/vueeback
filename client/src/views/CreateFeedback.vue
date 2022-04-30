@@ -7,23 +7,23 @@
       >
     </div>
 
-    <form action="">
+    <div action>
       <div v-if="!isUpdate" class="icon">&plus;</div>
       <div v-else class="icon">
         <img src="@/assets/document-editor.png" alt="" />
       </div>
-      <h2 v-if="isUpdate" class="form__title">Update "{{ feedback.title }}"</h2>
+      <h2 v-if="isUpdate" class="form__title">Update "{{ feedback.TITLE }}"</h2>
       <h2 v-else class="form__title">Create New FeedBack</h2>
       <div class="fields">
         <div class="field">
           <label for="">Feedback Title</label>
           <small>Add a short, descriptiove headline</small>
-          <input type="text" :value="feedback.title" />
+          <input type="text" v-model="feedback.TITLE" />
         </div>
         <div class="field">
           <label for="">Category</label>
           <small>Choose a category for your feedback</small>
-          <select name="" id="" va v-model="feedback.category">
+          <select name="" id="" v-model="feedback.CATEGORY">
             <option value="Feature">Feature</option>
             <option value="Live">Live</option>
             <option value="Enhancement">Live</option>
@@ -35,17 +35,25 @@
             >Include any specific, comments on what should be improved, added,
             etc.</small
           >
-          <textarea name="" id="" cols="30" rows="10" v-model="feedback.description"></textarea>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            v-model="feedback.DESCRIPTION"
+          ></textarea>
         </div>
       </div>
       <div class="buttons">
         <router-link to="/" class="cancel">Cancel</router-link>
-        <button class="submit">Submit Feedback</button>
+        <button @click="addFeedback()" class="submit">Submit Feedback</button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "Create Feed Back",
   data() {
@@ -54,13 +62,19 @@ export default {
       feedback: {},
     };
   },
+  methods: {
+    ...mapActions(["CREATE_FEEDBACK"]),
+    addFeedback() {
+      this.CREATE_FEEDBACK(this.feedback);
+    },
+  },
   mounted() {
-    this.isUpdate = this.$route.path.includes("update") ? true : false;
-    let {id} = this.$route.params;
-    if (id) {
-      this.$store.dispatch("FETCH_FEEDBACK", Number(id));
-      this.feedback = this.$store.state.feedback;
-    }
+    // this.isUpdate = this.$route.path.includes("update") ? true : false;
+    // let {id} = this.$route.params;
+    // if (id) {
+    //   this.$store.dispatch("FETCH_FEEDBACK", Number(id));
+    //   this.feedback = this.$store.state.feedback;
+    // }
   },
 };
 </script>
@@ -85,7 +99,7 @@ export default {
   margin: auto;
   display: block;
 }
-form {
+div[action] {
   background: #fff;
   padding: 3rem 2.5rem;
   position: relative;

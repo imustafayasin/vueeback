@@ -3,6 +3,7 @@
     <Sidebar />
     <div class="content">
       <AddFeedBack />
+
       <template v-for="feedback in feedbacks" v-bind:key="feedback.title">
         <Feedback @click="feedbackDetail(feedback.id)" :feedback="feedback" />
       </template>

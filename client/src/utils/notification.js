@@ -1,4 +1,4 @@
-export default function notification(message, type) {
+export default function notification(message, success) {
     try {
         const CLASS_NAME = "notification";
 
@@ -7,7 +7,7 @@ export default function notification(message, type) {
         if (document.querySelector(`.${CLASS_NAME}[show]`)) return
         let notification = document.createElement("div");
         notification.innerText = message;
-        notification.classList.add(`${CLASS_NAME}`, type);
+        notification.classList.add(`${CLASS_NAME}`, success ? "success" : "error");
         document.body.appendChild(notification);
 
         setTimeout(() => {

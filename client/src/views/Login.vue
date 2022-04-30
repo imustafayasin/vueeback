@@ -20,14 +20,13 @@
           </div>
         </div>
       </div>
+      {{ rPath }}
       <div class="buttons">
         <router-link to="/" class="cancel">Log in via Google</router-link>
         <button @click="login()" class="submit" type="button">Login</button>
       </div>
     </form>
   </div>
-
-  <pre>{{ result }}</pre>
 </template>
 <script>
 import {mapActions} from "vuex";
@@ -35,19 +34,20 @@ export default {
   name: "Login",
   data() {
     return {
-      EMAIL: "",
-      PASSWORD: "",
-      result: {data: "data"},
+      EMAIL: "yasin@limunis.com",
+      PASSWORD: "selam",
+      rPath: "/create",
     };
   },
   methods: {
     ...mapActions(["LOGIN"]),
     login() {
       let {NAME, LASTNAME, EMAIL, PASSWORD} = this;
-      this.LOGIN({EMAIL, PASSWORD}).then((result) =>
-        $notification(result.message, result.success ? "success" : "error")
-      );
+      this.LOGIN({EMAIL, PASSWORD}).then((a) => this.$router.push(this.rPath));
     },
+  },
+  created() {
+    this.rPath = this.$route.query.rPath || "/";
   },
 };
 </script>

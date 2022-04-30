@@ -1,6 +1,10 @@
 <template lang="pug">
  
 .sidebar
+  .sidebar__cart.zero(v-if="isLogin")
+    router-link(to="/account") My Account
+    a(href="/myfeedbacks") My Feedbacks
+    a(href="/logout" @click="logout($event)") Log out
   .sidebar__cart.one
     h2 Frontend Mentor
     p Feedback Board
@@ -37,12 +41,31 @@ export default {
   props: {
     msg: String,
   },
+  methods: {
+    logout(e) {
+      e.preventDefault();
+      this.$store.dispatch("LOGOUT");
+      this.isLogin = false;
+    },
+  },
+  data() {
+    return {
+      isLogin: this.$store.getters.isAuth,
+    };
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .sidebar {
+  a {
+    display: block;
+    margin: 15px 0;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .sidebar__cart {
     width: 280px;
     min-height: 150px;

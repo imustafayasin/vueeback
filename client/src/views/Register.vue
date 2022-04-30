@@ -48,8 +48,8 @@ export default {
     ...mapActions(["REGISTER"]),
     register() {
       let {NAME, LASTNAME, EMAIL, PASSWORD} = this;
-      this.REGISTER({NAME, LASTNAME, EMAIL, PASSWORD}).then((a) =>
-        alert(JSON.stringify(a))
+      this.REGISTER({NAME, LASTNAME, EMAIL, PASSWORD}).then(() =>
+        this.$router.push("/")
       );
     },
   },
