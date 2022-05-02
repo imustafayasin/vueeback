@@ -19,8 +19,13 @@ app.get('/', verifyToken, (req, res) => {
 app.post('/authuser', verifyToken, auth.getAuthUser)
 
 app.post('/feedback/create', verifyToken, feedback.create)
+app.post('/feedback/update', verifyToken, feedback.update)
 
 app.post('/feedback/getByUser', verifyToken, feedback.getByUser)
+
+app.post('/feedback/get', feedback.get)
+app.get('/feedback/get/:id', verifyToken, feedback.getById)
+app.get('/feedback/delete/:id', verifyToken, feedback.softDelete)
 
 app.post('/register', auth.register)
 app.listen(3000, function () {

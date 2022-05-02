@@ -3,10 +3,13 @@
     <Sidebar />
     <div class="content">
       <AddFeedBack />
-
-      <template v-for="feedback in feedbacks" v-bind:key="feedback.title">
-        <Feedback @click="feedbackDetail(feedback.id)" :feedback="feedback" />
-      </template>
+      <div
+        class="feedback-item"
+        v-for="feedback in feedbacks"
+        :key="feedback._id"
+      >
+        <Feedback :feedback="feedback" />
+      </div>
     </div>
   </div>
 </template>
@@ -29,14 +32,11 @@ export default {
       feedbacks: [],
     };
   },
-  methods: {
-    feedbackDetail(id) {
-      this.$router.push({path: `/detail/${Number(id)}`});
-    },
-  },
+  methods: {},
   mounted() {
-    this.$store.dispatch("FETCH_FEEDBACKS");
-    this.feedbacks = this.$store.state.feedbacks;
+    this.$store
+      .dispatch("FETCH_FEEDBACKS")
+      .then(() => (this.feedbacks = this.$store.state.feedbacks));
   },
 };
 </script>
@@ -44,5 +44,10 @@ export default {
 .home {
   display: flex;
   gap: 30px;
+}
+.feedback-item {
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 </style>

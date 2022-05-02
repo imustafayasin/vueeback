@@ -1,16 +1,16 @@
 <template lang="pug">
-.feedback
-    .upvote
-        button
-         img(src="@/assets/navigate-up-arrow.png")
-         | {{feedback.vote_count}}
-    .content
-        h2 {{feedback.title}}
-        p {{feedback.description}}
-        .category {{feedback.category}}
-    .comments_count
-     img(src="@/assets/speech-bubble.png")
-     | {{feedback.comment_count}}
+router-link.feedback(:to="`/detail/`+feedback?._id") 
+  .upvote
+      button
+        img(src="@/assets/navigate-up-arrow.png")
+        | {{feedback?.vote_count}}44
+  .content
+      h2 {{feedback?.TITLE}}
+      p {{feedback?.DETAIL}}
+      .category {{feedback?.CATEGORY}}
+  .comments_count
+    img(src="@/assets/speech-bubble.png")
+    | {{feedback?.comment_count}}22
 </template>
 <script>
 export default {
@@ -50,7 +50,7 @@ export default {
     }
   }
   .content {
-    margin-left: 2.5rem;
+    margin: 0 2.5rem;
     h2 {
       margin-bottom: 0.8rem;
       color: #393e5f;
@@ -60,6 +60,10 @@ export default {
       font-size: 1.2rem;
       font-weight: 500;
       line-height: 1.8;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
     .category {
       cursor: pointer;

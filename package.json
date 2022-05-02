@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "(cd client && npm run serve &&  cd server && nodemon app.js)"
+    "client": "cd client & npm run serve",
+    "server": "cd server & nodemon app.js",
+    "cls": "cls",
+    "run": "concurrently npm:client npm:server"
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/imustafayasin/vueeback/issues"
   },
-  "homepage": "https://github.com/imustafayasin/vueeback#readme"
+  "homepage": "https://github.com/imustafayasin/vueeback#readme",
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  }
 }

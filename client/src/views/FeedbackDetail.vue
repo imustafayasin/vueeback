@@ -5,11 +5,14 @@
         <img src="@/assets/navigate-up-arrow.png" alt="" />
         Go Back</router-link
       >
-      <router-link :to="`/update/` + feedback.id" class="edit"
+      <router-link
+        v-if="feedback.ownFeedback"
+        :to="`/update/` + feedback.data?._id"
+        class="edit"
         >Edit Feedback {{ rgdata.message }}</router-link
       >
     </div>
-    <Feedback :feedback="feedback" />
+    <Feedback :feedback="feedback.data" />
     <div v-if="totalComment > 0" class="comments-wrapper">
       <div class="header">
         <h2 class="comment_count">{{ totalComment }} comments</h2>
@@ -17,7 +20,7 @@
       <div class="comments">
         <div
           class="comment"
-          v-for="comment in feedback.comments"
+          v-for="comment in feedback.data.comments"
           v-bind:key="comment.user_id"
         >
           <div class="user_image"></div>
@@ -38,6 +41,13 @@
       </div>
     </div>
     <AddComment />
+    <button
+      @click="deleteFeedBack(feedback.data?._id)"
+      v-if="feedback.ownFeedback"
+      class="delete"
+    >
+      Delete Feedback
+    </button>
   </div>
 </template>
 <style lang="less" scoped>
@@ -102,27 +112,30 @@
   }
 }
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-  img {
-    width: 12px;
-    margin-right: 10px;
-    transform: rotate(-90deg);
-  }
-  a {
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: #fff;
-  }
   .edit {
     font-size: 1rem;
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     background: #4660e7;
     color: #fff;
+  }
+}
+button.delete {
+  padding: 0px 20px;
+  margin-top: 20px;
+  border: 1px solid #ed2f25;
+  --color: #ed2f25;
+  --bg: transparent;
+  background-color: var(--bg);
+  color: var(--color);
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-weight: 400;
+  border-radius: 3px;
+  &:hover {
+    --color: #fff;
+    --bg: #ed2f25;
   }
 }
 </style>
@@ -146,12 +159,16 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["REGISTER"]),
+    ...mapActions(["REGISTER", "DELETE_FEEDBACK"]),
+    deleteFeedBack(id) {
+      this.DELETE_FEEDBACK(id).then(()=> this.$router.push('/myfeedbacks'));
+    },
   },
   mounted() {
     let {id} = this.$route.params;
-    this.$store.dispatch("FETCH_FEEDBACK", Number(id));
-    this.feedback = this.$store.state.feedback;
+    this.$store
+      .dispatch("FETCH_FEEDBACK", id)
+      .then(() => (this.feedback = this.$store.state.feedback));
   },
 };
 </script>
