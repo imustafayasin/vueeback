@@ -1,5 +1,3 @@
-import { mapActions, mapGetters } from 'vuex';
-
 const axios = require('axios');
 const notification = require('../utils/notification.js');
 const BASE_URL = "http://localhost:3000";
@@ -16,8 +14,8 @@ const request = (method, path, data) => {
         data
     })
         .then(result => {
-            let { success, message } = result.data;
-            notification.default(message, success);
+            let { success, message, data } = result.data;
+            !data ? notification.default(message, success) : "";
             if (!success) return
             return result.data;
         })
@@ -42,8 +40,20 @@ export const feedback = {
     create(data) {
         return request("POST", "/feedback/create", data)
     },
+    update(data) {
+        return request("POST", "/feedback/update", data)
+    },
     getUserFeedbacks() {
         return request("POST", "/feedback/getByUser")
+    },
+    get() {
+        return request("POST", "/feedback/get")
+    },
+    getById(id) {
+        return request("GET", `/feedback/get/${id}`)
+    },
+    delete(id) {
+        return request("GET", `/feedback/delete/${id}`)
     }
 }
 

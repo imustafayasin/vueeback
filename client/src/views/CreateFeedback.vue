@@ -46,7 +46,9 @@
       </div>
       <div class="buttons">
         <router-link to="/" class="cancel">Cancel</router-link>
-        <button @click="addFeedback()" class="submit">Submit Feedback</button>
+        <button @click="addOrUpdateFeedback(isUpdate)" class="submit">
+          Submit Feedback
+        </button>
       </div>
     </div>
   </div>
@@ -63,18 +65,21 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["CREATE_FEEDBACK"]),
-    addFeedback() {
-      this.CREATE_FEEDBACK(this.feedback);
+    ...mapActions(["CREATE_FEEDBACK","UPDATE_FEEDBACK"]),
+    addOrUpdateFeedback(isUpdate) {
+      isUpdate
+        ? this.UPDATE_FEEDBACK(this.feedback)
+        : this.CREATE_FEEDBACK(this.feedback);
     },
   },
   mounted() {
-    // this.isUpdate = this.$route.path.includes("update") ? true : false;
-    // let {id} = this.$route.params;
-    // if (id) {
-    //   this.$store.dispatch("FETCH_FEEDBACK", Number(id));
-    //   this.feedback = this.$store.state.feedback;
-    // }
+    this.isUpdate = this.$route.path.includes("update") ? true : false;
+    let {id} = this.$route.params;
+    if (id) {
+      this.$store
+        .dispatch("FETCH_FEEDBACK", id)
+        .then(() => (this.feedback = this.$store.state.feedback?.data));
+    }
   },
 };
 </script>

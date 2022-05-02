@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import feedBacks from '../assets/dummy_feedback.json'
 import * as api from '@/api/index'
 
 export default createStore({
@@ -20,8 +19,8 @@ export default createStore({
     SET_FEEDBACKS(state, feedbacks) {
       state.feedbacks = feedbacks
     },
-    SET_FEEDBACK(state, currentFeedback) {
-      state.feedback = currentFeedback
+    SET_FEEDBACK(state, feedback) {
+      state.feedback = feedback
     },
     COMMIT_REGISTER(state, data) {
       state.rgdata = data
@@ -46,9 +45,6 @@ export default createStore({
     }
   },
   actions: {
-    FETCH_FEEDBACKS() {
-      this.commit('SET_FEEDBACKS', feedBacks)
-    },
 
     //parametleri obje içinde gönder data{}
     REGISTER({ state }, { NAME, LASTNAME, EMAIL, PASSWORD }) {
@@ -64,23 +60,30 @@ export default createStore({
     },
 
     FETCH_USER({ commit }) {
-      return api.user.get().then(user => commit('SET_AUTH_USER', user));
-    },
-
-    FETCH_FEEDBACK(state, feedback_id) {
-      this.dispatch("FETCH_FEEDBACKS")
-      let currentFeedback = this.state.feedbacks.find(f => f.id == feedback_id);
-      this.commit('SET_FEEDBACK', currentFeedback)
+      return api.user.get().then(user => commit('SET_AUTH_USER', user.data));
     },
 
     CREATE_FEEDBACK({ commit }, data) {
       return api.feedback.create(data)
     },
+    UPDATE_FEEDBACK({ }, data) {
+      return api.feedback.update(data)
+    },
 
     FETCH_USER_FEEDBACKS({ commit }) {
       return api.feedback.getUserFeedbacks().then(userFeedbacks => commit('USER_FEEDBACKS', userFeedbacks))
-    }
+    },
 
+    FETCH_FEEDBACKS({ commit }) {
+      return api.feedback.get().then(feedbacks => commit('SET_FEEDBACKS', feedbacks.data))
+    },
+
+    FETCH_FEEDBACK({ commit }, _id) {
+      return api.feedback.getById(_id).then(feedback => commit('SET_FEEDBACK', feedback.data))
+    },
+    DELETE_FEEDBACK({ }, _id) {
+      return api.feedback.delete(_id)
+    }
 
   },
   modules: {

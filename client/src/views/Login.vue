@@ -20,9 +20,8 @@
           </div>
         </div>
       </div>
-      {{ rPath }}
       <div class="buttons">
-        <router-link to="/" class="cancel">Log in via Google</router-link>
+        <router-link to="/register" class="cancel">Register</router-link>
         <button @click="login()" class="submit" type="button">Login</button>
       </div>
     </form>

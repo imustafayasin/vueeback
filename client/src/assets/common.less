@@ -43,6 +43,10 @@ p {
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 40;
 }
+a,
+button {
+  cursor: pointer;
+}
 
 .notification {
   position: fixed;
@@ -58,7 +62,7 @@ p {
   transition: 100ms ease-in-out;
   display: flex;
   align-items: center;
-  gap:10px;
+  gap: 10px;
   &[show] {
     --y: 70px;
   }
@@ -72,5 +76,23 @@ p {
     color: green;
     font-size: 20px;
     line-height: 0;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  img {
+    width: 12px;
+    margin-right: 10px;
+    transform: rotate(-90deg);
+  }
+  a {
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #fff;
   }
 }
