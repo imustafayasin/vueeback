@@ -4,6 +4,8 @@ database.connect();
 
 
 const { Feedback } = require("../database/models");
+const { Comment } = require("../database/models");
+
 
 const create = (req, res, next) => {
     if (req.body && !!req.body.TITLE) {
@@ -14,20 +16,19 @@ const create = (req, res, next) => {
 }
 
 const update = (req, res) => {
-    console.log(req.body)
     if (req.body && !!req.body._id) {
-        req.body.USERID = req.userId
+        req.body.USERID = req.userId;
 
-        Feedback.findOneAndUpdate({ id: req.body.id }, req.body, (err, feedback) => {
-            if (err) return
+        Feedback.findOneAndUpdate({ _id: req.body._id }, req.body, (err, data) => {
+            if (err) { console.log(err); return; }
             res.json({ success: true, message: "Successfuly" });
         });
 
     }
 }
 const getByUser = (req, res, next) => {
-    if (!req.userId) return
-    Feedback.find({ USERID: req.userId }, (err, feedbacks) => {
+    if (!req.body.USERID) return
+    Feedback.find({ USERID: req.body.USERID }, (err, feedbacks) => {
         if (err) return
         res.json({ success: true, message: "Successfuly", data: feedbacks });
     });
@@ -44,16 +45,16 @@ const getById = (req, res) => {
     if (!req.params.id) return
     Feedback.findById(req.params.id, (err, feedback) => {
         if (err) return
+        Comment.find({ FEEDBACK_ID: feedback.id }, { COMMENT: 1, CREATED_DATE: 1, _id: 1 }, (err, comment) => {
+            res.json({ success: true, message: "Successfuly", data: { data: feedback, ownFeedback: req.body.USERID == feedback.USERID && !!req.body.USERID, comments: comment, currentUserId: req.body.USERID } });
+        }).populate('USERID');
 
-        console.log(req.userId, feedback.USERID)
-        res.json({ success: true, message: "Successfuly", data: { data: feedback, ownFeedback: req.userId == feedback.USERID } });
     });
 }
 
 const softDelete = (req, res) => {
-    console.log(req.params.id)
-    if (!req.userId || !req.params.id) return
-    Feedback.deleteOne({ id: req.params.id }, (err, feedback) => {
+    if (!req.body.USERID || !req.params.id) return
+    Feedback.deleteOne({ _id: req.params.id, USERID: req.userId }, (err, feedback) => {
         if (err) return
         res.json({ success: true, message: "Successfuly" });
     });

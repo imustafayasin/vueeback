@@ -2,7 +2,7 @@
   <div class="home">
     <Sidebar />
     <div class="content">
-      <AddFeedBack />
+      <AddFeedBack :suggestCount="feedbacks?.length" />
       <div
         class="feedback-item"
         v-for="feedback in feedbacks"

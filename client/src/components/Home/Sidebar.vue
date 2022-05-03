@@ -1,10 +1,14 @@
 <template lang="pug">
  
 .sidebar
-  .sidebar__cart.zero(v-if="isLogin")
-    router-link(to="/account") My Account
-    router-link(to="/myfeedbacks") My Feedbacks
-    a(href="/logout" @click="logout($event)") Log out
+  .sidebar__cart.zero
+    div(v-if="!isLogin")
+      router-link(to="/login") Login
+      router-link(to="/register") Register
+    div(v-else)
+      router-link(to="/account") My Account
+      router-link(to="/myfeedbacks") My Feedbacks
+      a(href="/logout" @click="logout($event)") Log out
   .sidebar__cart.one
     h2 Frontend Mentor
     p Feedback Board

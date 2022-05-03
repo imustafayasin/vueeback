@@ -13,26 +13,33 @@
       >
     </div>
     <Feedback :feedback="feedback.data" />
-    <div v-if="totalComment > 0" class="comments-wrapper">
+    <div v-if="!!feedback?.comments?.length" class="comments-wrapper">
       <div class="header">
-        <h2 class="comment_count">{{ totalComment }} comments</h2>
+        <h2 class="comment_count">{{ feedback?.comments?.length }} comments</h2>
       </div>
       <div class="comments">
         <div
           class="comment"
-          v-for="comment in feedback.data.comments"
-          v-bind:key="comment.user_id"
+          v-for="data in feedback?.comments"
+          v-bind:key="data.USERID._id"
         >
           <div class="user_image"></div>
           <div class="content">
             <button class="reply_comment">Reply</button>
+            <button
+              v-if="feedback.currentUserId == data.USERID._id"
+              @click="deleteComment(data._id)"
+              class="remove_comment"
+            >
+              Remove
+            </button>
             <div class="user">
-              <b>{{ comment.name }}</b>
-              <p class="mute">@{{ comment.username }}</p>
+              <b>{{ data.USERID.NAME + " " + data.USERID.LASTNAME }}</b>
+              <p class="mute">@{{ data.USERID.USERNAME }}</p>
             </div>
             <div class="message">
               <p>
-                {{ comment.message }}
+                {{ data.COMMENT }}
               </p>
             </div>
           </div>
@@ -40,7 +47,7 @@
         </div>
       </div>
     </div>
-    <AddComment />
+    <AddComment v-on:add="addComment" />
     <button
       @click="deleteFeedBack(feedback.data?._id)"
       v-if="feedback.ownFeedback"
@@ -71,13 +78,21 @@
 
     .content {
       position: relative;
-      .reply_comment {
+      button {
         position: absolute;
-        right: 0;
-        top: 20px;
         cursor: pointer;
         font-weight: bold;
-        color: #4660e7;
+        right: 0;
+        color: var(--color);
+        top: var(--top);
+      }
+      .reply_comment {
+        --color: #4660e7;
+        --top: 0;
+      }
+      .remove_comment {
+        --color: #ed2f25;
+        --top: 40px;
       }
       .user {
         b {
@@ -159,16 +174,30 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["REGISTER", "DELETE_FEEDBACK"]),
+    ...mapActions(["DELETE_FEEDBACK", "ADD_COMMENT", "DELETE_COMMENT"]),
     deleteFeedBack(id) {
-      this.DELETE_FEEDBACK(id).then(()=> this.$router.push('/myfeedbacks'));
+      this.DELETE_FEEDBACK(id).then(() => this.$router.push("/myfeedbacks"));
+    },
+    addComment(commentText) {
+      let commentObject = {
+        FEEDBACK_ID: this.feedback.data?._id,
+        COMMENT: commentText,
+      };
+      this.ADD_COMMENT(commentObject).then((data) => this.fetchFeedback());
+    },
+    fetchFeedback() {
+      let {id} = this.$route.params;
+      this.$store
+        .dispatch("FETCH_FEEDBACK", id)
+        .then(() => (this.feedback = this.$store.state.feedback));
+    },
+    deleteComment(id) {
+      this.DELETE_COMMENT(id).then((data) => this.fetchFeedback());
+      console.log(id);
     },
   },
   mounted() {
-    let {id} = this.$route.params;
-    this.$store
-      .dispatch("FETCH_FEEDBACK", id)
-      .then(() => (this.feedback = this.$store.state.feedback));
+    this.fetchFeedback();
   },
 };
 </script>
