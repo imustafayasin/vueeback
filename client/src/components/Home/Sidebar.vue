@@ -13,12 +13,12 @@
     h2 Frontend Mentor
     p Feedback Board
   .sidebar__cart.tags
-    .tag All
-    .tag UI
-    .tag UX
-    .tag Enchancemet
-    .tag Bug
-    .tag Feature
+    .tag(@click="filterCategory('All')" class='active') All
+    .tag(@click="filterCategory('UI')") UI
+    .tag(@click="filterCategory('UX')") UX
+    .tag(@click="filterCategory('Enchancemet')") Enchancemet
+    .tag(@click="filterCategory('Bug')") Bug
+    .tag(@click="filterCategory('Feature')") Feature
   .sidebar__cart.roadmap
     .head
       h3 Roadmap
@@ -50,6 +50,9 @@ export default {
       e.preventDefault();
       this.$store.dispatch("LOGOUT");
       this.isLogin = false;
+    },
+    filterCategory(category) {
+      this.$emit("filterByCategory", category);
     },
   },
   data() {

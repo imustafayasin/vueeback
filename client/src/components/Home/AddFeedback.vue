@@ -5,10 +5,9 @@
       .count {{suggestCount}} Suggestion
   .sort
     span Sort by:
-    select
-      option Most Upvotes
-      option Most Popular
-      option Newest
+    select(@change="sort()" v-model="sortType")
+      option(value="new") Newest
+      option(value="popular") Most Popular
   router-link(to="/create",class="add")
     button &plus; Add Feedback
 </template>
@@ -18,6 +17,18 @@ export default {
   name: "AddFeedBack",
   props: {
     suggestCount: Number,
+  },
+  data() {
+    return {
+      sortType: "new",
+    };
+  },
+  methods: {
+    sort() {
+      console.log(this.sortType);
+      if (!this.sortType) return;
+      this.$emit("sortByCategory", this.sortType);
+    },
   },
 };
 </script>

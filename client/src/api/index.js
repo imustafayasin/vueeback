@@ -47,8 +47,8 @@ export const feedback = {
     getUserFeedbacks() {
         return request("POST", "/feedback/getByUser")
     },
-    get() {
-        return request("POST", "/feedback/get")
+    get(filter) {
+        return request("POST", "/feedback/get", { filter })
     },
     getById(id) {
         return request("GET", `/feedback/get/${id}`)

@@ -70,6 +70,7 @@
   .comment {
     display: flex;
     gap: 2rem;
+    position: relative;
     &:not(:last-child) {
       margin-bottom: 3rem;
       border-bottom: 1px solid #eee;
@@ -77,7 +78,11 @@
     }
 
     .content {
-      position: relative;
+      width: fit-content;
+      .user,
+      .message {
+        width: fit-content;
+      }
       button {
         position: absolute;
         cursor: pointer;
@@ -85,6 +90,9 @@
         right: 0;
         color: var(--color);
         top: var(--top);
+        &:hover {
+          text-decoration: underline;
+        }
       }
       .reply_comment {
         --color: #4660e7;
@@ -193,7 +201,6 @@ export default {
     },
     deleteComment(id) {
       this.DELETE_COMMENT(id).then((data) => this.fetchFeedback());
-      console.log(id);
     },
   },
   mounted() {

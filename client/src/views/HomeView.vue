@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <Sidebar />
+    <Sidebar v-on:filterByCategory="filterCategory" />
     <div class="content">
-      <AddFeedBack :suggestCount="feedbacks?.length" />
+      <AddFeedBack
+        v-on:sortByCategory="sortCategory"
+        :suggestCount="feedbacks?.length"
+      />
       <div
         class="feedback-item"
         v-for="feedback in feedbacks"
@@ -32,11 +35,25 @@ export default {
       feedbacks: [],
     };
   },
-  methods: {},
+  methods: {
+    fetchFeedbacks(sort, category) {
+      let data = {
+        sort: sort ?? "new",
+        category: category ?? "All",
+      };
+      this.$store
+        .dispatch("FETCH_FEEDBACKS", data)
+        .then(() => (this.feedbacks = this.$store.state.feedbacks));
+    },
+    sortCategory(sort) {
+      this.fetchFeedbacks(sort, null);
+    },
+    filterCategory(category) {
+      this.fetchFeedbacks("asd", category);
+    },
+  },
   mounted() {
-    this.$store
-      .dispatch("FETCH_FEEDBACKS")
-      .then(() => (this.feedbacks = this.$store.state.feedbacks));
+    this.fetchFeedbacks();
   },
 };
 </script>

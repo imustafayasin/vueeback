@@ -4,10 +4,15 @@ database.connect();
 
 
 const { Comment } = require("../database/models");
+const { Feedback } = require("../database/models");
 
 const create = (req, res) => {
+
     Comment.create(req.body, (err, comment) => {
         if (err) return
+        console.log(req.body)
+        Feedback.findByIdAndUpdate(req.body.FEEDBACK_ID, { $push: { "COMMENTS": comment.id } }, { new: true, upsert: true }, (err, data) => {
+        })
         res.json({ message: "Success", success: true, comment: comment })
     })
 };
