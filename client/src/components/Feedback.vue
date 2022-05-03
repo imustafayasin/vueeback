@@ -10,7 +10,7 @@ router-link.feedback(:to="`/detail/`+feedback?._id")
       .category {{feedback?.CATEGORY}}
   .comments_count
     img(src="@/assets/speech-bubble.png")
-    | {{feedback?.comment_count}}22
+    | {{feedback?.COMMENTS?.length}}
 </template>
 <script>
 export default {

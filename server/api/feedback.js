@@ -8,8 +8,7 @@ const { Comment } = require("../database/models");
 
 
 const create = (req, res, next) => {
-    if (req.body && !!req.body.TITLE) {
-        req.body.USERID = req.userId
+    if (req.body.USERID && !!req.body.TITLE) {
         Feedback.create(req.body);
         res.json({ success: true, message: "Successfuly" });
     }
@@ -17,8 +16,6 @@ const create = (req, res, next) => {
 
 const update = (req, res) => {
     if (req.body && !!req.body._id) {
-        req.body.USERID = req.userId;
-
         Feedback.findOneAndUpdate({ _id: req.body._id }, req.body, (err, data) => {
             if (err) { console.log(err); return; }
             res.json({ success: true, message: "Successfuly" });
@@ -35,10 +32,12 @@ const getByUser = (req, res, next) => {
 }
 
 const get = (req, res) => {
+    //let { sort, category } = req.body.filter;
+
     Feedback.find({}, (err, feedbacks) => {
         if (err) return
         res.json({ success: true, message: "Successfuly", data: feedbacks });
-    }).limit(10);
+    }).populate('USERID').limit(10);
 }
 
 const getById = (req, res) => {

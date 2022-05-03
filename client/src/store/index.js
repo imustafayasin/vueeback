@@ -74,8 +74,8 @@ export default createStore({
       return api.feedback.getUserFeedbacks().then(userFeedbacks => commit('USER_FEEDBACKS', userFeedbacks))
     },
 
-    FETCH_FEEDBACKS({ commit }) {
-      return api.feedback.get().then(feedbacks => commit('SET_FEEDBACKS', feedbacks.data))
+    FETCH_FEEDBACKS({ commit }, data) {
+      return api.feedback.get(data).then(feedbacks => commit('SET_FEEDBACKS', feedbacks.data))
     },
 
     FETCH_FEEDBACK({ commit }, _id) {
