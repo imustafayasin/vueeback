@@ -22,11 +22,16 @@
         </div>
         <div class="field">
           <label for="">Category</label>
+
           <small>Choose a category for your feedback</small>
           <select name="" id="" v-model="feedback.CATEGORY">
+            <option value="UX">UX</option>
+            <option value="UI">UI</option>
             <option value="Feature">Feature</option>
             <option value="Live">Live</option>
-            <option value="Enhancement">Live</option>
+            <option value="Enchancemet">Enchancemet</option>
+            <option value="Bug">Bug</option>
+            <option value="Feature">Feature</option>
           </select>
         </div>
         <div class="field">
@@ -47,7 +52,8 @@
       <div class="buttons">
         <router-link to="/" class="cancel">Cancel</router-link>
         <button @click="addOrUpdateFeedback(isUpdate)" class="submit">
-          Submit Feedback
+          <span v-if="isUpdate"> Update </span><span v-else> Submit </span>
+          Feedback
         </button>
       </div>
     </div>
@@ -65,7 +71,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["CREATE_FEEDBACK","UPDATE_FEEDBACK"]),
+    ...mapActions(["CREATE_FEEDBACK", "UPDATE_FEEDBACK"]),
     addOrUpdateFeedback(isUpdate) {
       isUpdate
         ? this.UPDATE_FEEDBACK(this.feedback)
@@ -141,6 +147,11 @@ div[action] {
       }
       small {
         color: #393e5fbd;
+      }
+      select {
+        option {
+          padding: 10px;
+        }
       }
       input,
       select,

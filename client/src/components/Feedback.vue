@@ -1,7 +1,7 @@
 <template lang="pug">
 router-link.feedback(:to="`/detail/`+feedback?._id") 
   .upvote
-      button
+      button(v-on:click.self="upvote($event)")
         img(src="@/assets/navigate-up-arrow.png")
         | {{feedback?.vote_count}}44
   .content
@@ -18,6 +18,7 @@ export default {
   props: {
     feedback: Object,
   },
+  methods: {},
 };
 </script>
 <style lang="less" scoped>

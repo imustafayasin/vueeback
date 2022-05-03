@@ -2,7 +2,7 @@
 .addFeedBack
   .suggestions
       img(src="@/assets/bulb.png")
-      .count 6 Suggestion
+      .count {{suggestCount}} Suggestion
   .sort
     span Sort by:
     select
@@ -16,6 +16,9 @@
 <script>
 export default {
   name: "AddFeedBack",
+  props: {
+    suggestCount: Number,
+  },
 };
 </script>
 

@@ -26,10 +26,10 @@ const login = (req, res, next) => {
     });
 };
 const getAuthUser = (req, res) => {
-    Identity.findOne({ _id: req.userId }, (err, usr) => {
+    Identity.findOne({ _id: req.body.USERID }, (err, usr) => {
         if (usr) {
-            let { EMAIL, USERNAME, LASTNAME, NAME } = usr;
-            return res.json({ success: true, message: "Success", data: { EMAIL, USERNAME, LASTNAME, NAME } })
+            let { EMAIL, USERNAME, LASTNAME, NAME, FULLNAME } = usr;
+            return res.json({ success: true, message: "Success", data: { EMAIL, USERNAME, LASTNAME, NAME, FULLNAME } })
         }
         else {
             return res.json({ succes: false, message: "Not found" })

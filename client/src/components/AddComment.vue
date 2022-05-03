@@ -4,7 +4,7 @@ div.addComment
     textarea( placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="5")
     div.actions
         div.character_counter {{character_count - comment.length}} character left
-        button Post comment
+        button(@click="addComment") Post comment
  
 </template>
 
@@ -54,6 +54,12 @@ export default {
       comment: "",
       character_count: 255,
     };
+  },
+  methods: {
+    addComment() {
+      if (!this.comment) return;
+      this.$emit("add", this.comment);
+    },
   },
 };
 </script>

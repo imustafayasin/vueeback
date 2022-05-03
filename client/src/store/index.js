@@ -83,6 +83,12 @@ export default createStore({
     },
     DELETE_FEEDBACK({ }, _id) {
       return api.feedback.delete(_id)
+    },
+    ADD_COMMENT({ }, data) {
+      return api.comment.add(data)
+    },
+    DELETE_COMMENT({ }, id) {
+      return api.comment.delete(id)
     }
 
   },

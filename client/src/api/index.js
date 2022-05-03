@@ -14,7 +14,8 @@ const request = (method, path, data) => {
         data
     })
         .then(result => {
-            let { success, message, data } = result.data;
+            let { success, message, data, unAuthorized } = result.data;
+            if (unAuthorized) location.href = "/login";
             !data ? notification.default(message, success) : "";
             if (!success) return
             return result.data;
@@ -63,3 +64,11 @@ export const user = {
     }
 }
 
+export const comment = {
+    add(data) {
+        return request("POST", "/feedback/addComment", data)
+    },
+    delete(id) {
+        return request("POST", "/feedback/deleteComment", { id })
+    }
+}
