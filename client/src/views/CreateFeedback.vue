@@ -1,64 +1,44 @@
-<template>
-  <div class="create-feedback">
-    <div class="header">
-      <router-link to="/">
-        <img src="@/assets/navigate-up-arrow.png" alt="" />
-        Go Back</router-link
-      >
-    </div>
+<template lang="pug">
+.create-feedback
+  .header
+    router-link(to='/')
+      img(src='@/assets/navigate-up-arrow.png' alt='')
+      |         Go Back
+  form(@submit.prevent='addOrUpdateFeedback(isUpdate)')
+    .icon(v-if='!isUpdate') &plus;
+    .icon(v-else='')
+      img(src='@/assets/document-editor.png' alt='')
+    h2.form__title(v-if='isUpdate') Update &quot;{{ feedback.TITLE }}&quot;
+    h2.form__title(v-else='') Create New FeedBack
+    .fields
+      .field
+        label(for='') Feedback Title
+        small Add a short, descriptiove headline
+        input(required='' type='text' v-model='feedback.TITLE')
+      .field
+        label(for='') Category
+        small Choose a category for your feedback
+        select(required='' name='' id='' v-model='feedback.CATEGORY')
+          option(value='' disabled='' selected='') Select an category
+          option(value='UX') UX
+          option(value='UI') UI
+          option(value='LIVE') Live
+          option(value='ENCHANCEMENT') Enchancemet
+          option(value='BUG') Bug
+          option(value='FEATURE') Feature
+      .field
+        label(for='') Feedback Detail
+        small
+          | Include any specific, comments on what should be improved, added,
+          | etc.
+        textarea(name='' id='' cols='30' rows='10' required='' v-model='feedback.DETAIL')
+    .buttons
+      router-link.cancel(to='/') Go back
+      button.submit
+        span(v-if='isUpdate')  Update 
+        span(v-else='')  Submit 
+        |           Feedback
 
-    <form @submit.prevent="addOrUpdateFeedback(isUpdate)">
-      <div v-if="!isUpdate" class="icon">&plus;</div>
-      <div v-else class="icon">
-        <img src="@/assets/document-editor.png" alt="" />
-      </div>
-      <h2 v-if="isUpdate" class="form__title">Update "{{ feedback.TITLE }}"</h2>
-      <h2 v-else class="form__title">Create New FeedBack</h2>
-      <div class="fields">
-        <div class="field">
-          <label for="">Feedback Title</label>
-          <small>Add a short, descriptiove headline</small>
-          <input required type="text" v-model="feedback.TITLE" />
-        </div>
-        <div class="field">
-          <label for="">Category</label>
-
-          <small>Choose a category for your feedback</small>
-          <select required name="" id="" v-model="feedback.CATEGORY">
-            <option value="" disabled selected>Select an category</option>
-            <option value="UX">UX</option>
-            <option value="UI">UI</option>
-            <option value="LIVE">Live</option>
-            <option value="ENCHANCEMENT">Enchancemet</option>
-            <option value="BUG">Bug</option>
-            <option value="FEATURE">Feature</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="">Feedback Detail</label>
-          <small
-            >Include any specific, comments on what should be improved, added,
-            etc.</small
-          >
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            required
-            v-model="feedback.DETAIL"
-          ></textarea>
-        </div>
-      </div>
-      <div class="buttons">
-        <router-link to="/" class="cancel">Go back</router-link>
-        <button class="submit">
-          <span v-if="isUpdate"> Update </span><span v-else> Submit </span>
-          Feedback
-        </button>
-      </div>
-    </form>
-  </div>
 </template>
 <script>
 import {mapActions} from "vuex";
@@ -76,8 +56,12 @@ export default {
     addOrUpdateFeedback(isUpdate) {
       if (Object.values(this.feedback).every((f) => f === null)) return;
       isUpdate
-        ? this.UPDATE_FEEDBACK(this.feedback).catch(() => {})
-        : this.CREATE_FEEDBACK(this.feedback).catch(() => {});
+        ? this.UPDATE_FEEDBACK(this.feedback)
+            .then(() => this.$router.go(-1))
+            .catch(() => {})
+        : this.CREATE_FEEDBACK(this.feedback)
+            .then(() => this.$router.go(-1))
+            .catch(() => {});
     },
   },
   mounted() {
@@ -92,7 +76,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
 .create-feedback {
   max-width: 700px;
   margin: auto;
