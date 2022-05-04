@@ -1,23 +1,12 @@
-<template>
-  <div class="home">
-    <Sidebar v-on:filterByCategory="filterCategory" />
-    <div class="content">
-      <AddFeedBack
-        v-on:sortByCategory="sortCategory"
-        :suggestCount="feedbacks?.length"
-      />
-      <EmptyState :showButton="false" v-if="!feedbacks?.length" />
+<template lang="pug">
+.home
+  Sidebar(v-on:filterbycategory='filterCategory')
+  .content
+    <AddFeedBack v-on:sortbycategory='sortCategory' :suggestcount='feedbacks?.length' />
+    <EmptyState :showbutton='false' v-if='!feedbacks?.length' /> 
+    .feedback-item(v-else='' v-for='feedback in feedbacks' :key='feedback._id')
+      <Feedback :feedback='feedback' />
 
-      <div
-        v-else
-        class="feedback-item"
-        v-for="feedback in feedbacks"
-        :key="feedback._id"
-      >
-        <Feedback :feedback="feedback" />
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -33,7 +22,7 @@ export default {
     Sidebar,
     AddFeedBack,
     Feedback,
-    EmptyState
+    EmptyState,
   },
   data() {
     return {

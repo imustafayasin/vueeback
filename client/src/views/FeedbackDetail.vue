@@ -184,7 +184,7 @@ export default {
   methods: {
     ...mapActions(["DELETE_FEEDBACK", "ADD_COMMENT", "DELETE_COMMENT"]),
     deleteFeedBack(id) {
-      this.DELETE_FEEDBACK(id).then(() => this.$router.push("/myfeedbacks"));
+      this.DELETE_FEEDBACK(id).then(() => this.$router.go(-1));
     },
     addComment(commentText) {
       let commentObject = {
