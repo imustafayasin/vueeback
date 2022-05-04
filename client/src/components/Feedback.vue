@@ -55,6 +55,12 @@ export default {
     h2 {
       margin-bottom: 0.8rem;
       color: #393e5f;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow-wrap: anywhere;
+      overflow: hidden;
+      line-height: 34px;
     }
     p {
       color: #393e5fd9;
@@ -62,9 +68,11 @@ export default {
       font-weight: 500;
       line-height: 1.8;
       display: -webkit-box;
-      overflow: hidden;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
+      overflow-wrap: anywhere;
+      overflow: hidden;
+      line-height: 30px;
     }
     .category {
       cursor: pointer;
@@ -77,6 +85,7 @@ export default {
       font-weight: 900;
       color: #4660e7;
       margin-top: 10px;
+      text-transform: lowercase;
     }
   }
   .comments_count {

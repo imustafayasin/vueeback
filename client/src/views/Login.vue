@@ -1,17 +1,18 @@
 <template>
   <div class="register">
-    <form action="">
+    <form @submit.prevent="login" action="">
       <div class="icon">&plus;</div>
       <h2 class="form__title">Login</h2>
       <div class="fields">
         <div class="row">
           <div class="field">
             <label for="">Email</label>
-            <input type="text" v-model="EMAIL" />
+            <input type="email" required v-model="EMAIL" />
           </div>
           <div class="field">
             <label for="">Password</label>
             <input
+              required
               name="password"
               autocomplete=""
               type="password"
@@ -22,7 +23,7 @@
       </div>
       <div class="buttons">
         <router-link to="/register" class="cancel">Register</router-link>
-        <button @click="login()" class="submit" type="button">Login</button>
+        <button class="submit">Login</button>
       </div>
     </form>
   </div>
@@ -42,7 +43,9 @@ export default {
     ...mapActions(["LOGIN"]),
     login() {
       let {NAME, LASTNAME, EMAIL, PASSWORD} = this;
-      this.LOGIN({EMAIL, PASSWORD}).then((a) => this.$router.push(this.rPath));
+      this.LOGIN({EMAIL, PASSWORD})
+        .then((a) => this.$router.push(this.rPath))
+        .catch(() => {});
     },
   },
   created() {
@@ -51,21 +54,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.header {
-  display: block;
-  margin-bottom: 6rem;
-  img {
-    width: 12px;
-    margin-right: 10px;
-    transform: rotate(-90deg);
-  }
-  a {
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: #fff;
-  }
-}
 .register {
   max-width: 700px;
   margin: auto;

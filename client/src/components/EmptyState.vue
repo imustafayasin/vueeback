@@ -2,11 +2,17 @@
 .empty-state
     img(src="@/assets/empty.png")
     h2 Uh! Empty here
-    router-link.add(to="/create") Add a feedback
+    router-link.add(to="/create" v-if="showButton") Add a feedback
 </template>
 <script>
 export default {
   name: "EmptyState",
+  props: {
+    showButton:{
+      type:Boolean,
+      default:true
+    } ,
+  },
 };
 </script>
 

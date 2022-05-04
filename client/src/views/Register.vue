@@ -1,33 +1,41 @@
 <template>
   <div class="register">
-    <form action="">
+    <form @submit.prevent="register">
       <div class="icon">&plus;</div>
       <h2 class="form__title">Register</h2>
       <div class="fields">
         <div class="row">
           <div class="field">
             <label for="">First Name</label>
-            <input type="text" v-model="NAME" />
+            <input required type="text" v-model="NAME" />
           </div>
           <div class="field">
             <label for="">Last Name </label>
-            <input type="text" v-model="LASTNAME" />
+            <input required type="text" v-model="LASTNAME" />
           </div>
         </div>
         <div class="field">
           <label for="">Email</label>
-          <input type="text" v-model="EMAIL" />
+          <input
+            required
+            type="email"
+            autocomplete="username"
+            v-model="EMAIL"
+          />
         </div>
         <div class="field">
           <label for="">Password</label>
-          <input type="password" v-model="PASSWORD" />
+          <input
+            required
+            type="password"
+            autocomplete="current-password"
+            v-model="PASSWORD"
+          />
         </div>
       </div>
       <div class="buttons">
-        <router-link to="/" class="cancel">Register via Google</router-link>
-        <button @click="register()" class="submit" type="button">
-          Register
-        </button>
+        <router-link to="/" class="cancel">Go back</router-link>
+        <button class="submit">Register</button>
       </div>
     </form>
   </div>
@@ -48,34 +56,15 @@ export default {
     ...mapActions(["REGISTER"]),
     register() {
       let {NAME, LASTNAME, EMAIL, PASSWORD} = this;
-      this.REGISTER({NAME, LASTNAME, EMAIL, PASSWORD}).then(() =>
-        this.$router.push("/")
-      );
+
+      this.REGISTER({NAME, LASTNAME, EMAIL, PASSWORD})
+        .then(() => this.$router.push("/"))
+        .catch((error) => {});
     },
   },
 };
 </script>
 <style lang="less" scoped>
-.header {
-  display: block;
-  margin-bottom: 6rem;
-  img {
-    width: 12px;
-    margin-right: 10px;
-    transform: rotate(-90deg);
-  }
-  a {
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: #fff;
-  }
-}
-.register {
-  max-width: 700px;
-  margin: auto;
-  display: block;
-}
 form {
   background: #fff;
   padding: 3rem 2.5rem;

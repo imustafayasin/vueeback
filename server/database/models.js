@@ -7,23 +7,26 @@ const Schema = mongoose.Schema;
 //-- Validations , virtuals, utils func.
 var userSchema = new Schema({
     NAME: {
-        type: String, required: true,
-        min: [5, 'Must be at least 5, got {VALUE}'],
+        type: String,
+        required: [true, 'Name is required'],
         max: 120
     },
     LASTNAME: {
         type: String, required: true,
-        min: [5, 'Must be at least 5, got {VALUE}'],
+        required: [true, 'Lastname is required'],
         max: 120
     },
     USERNAME: {
         type: String, required: true,
-        min: [5, 'Must be at least 5, got {VALUE}'],
+        required: [true, 'username is required'],
         max: 120
     },
     EMAIL: {
-        type: String, required: true,
-        max: 120
+        type: String,
+        required: true,
+        unique: true,
+        max: 120,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     PASSWORD: {
         type: String, required: true,
@@ -39,14 +42,17 @@ var Identity = mongoose.model("Identity", userSchema)
 var Feedback = mongoose.model("Feedback", new Schema({
     TITLE: {
         type: String, required: true,
-        min: [5, 'Must be at least 5, got {VALUE}'],
-        max: 255
+        trim: true,
+        min: 2,
+        minlength: 2,
+        maxlength: 15
     },
     CATEGORY: {
-        type: String, required: true, enum: {
-            values: ['UI', 'UX', 'FEATURE', 'LIVE', 'ENCHANCEMET', 'BUG', 'FEATURE'],
-            message: '{VALUE} is not supported'
-        }
+        type: String, required: true
+        // , enum: {
+        //     values: ['UI', 'UX', 'FEATURE', 'LIVE', 'ENCHANCEMET', 'BUG', 'FEATURE'],
+        //     message: 'Category value not supported'
+        // }
     },
     DETAIL: { type: String, min: 1, max: 255, required: true },
     VOTE: String,

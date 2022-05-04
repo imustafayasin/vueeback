@@ -16,9 +16,10 @@
     .tag(@click="filterCategory('All')" class='active') All
     .tag(@click="filterCategory('UI')") UI
     .tag(@click="filterCategory('UX')") UX
-    .tag(@click="filterCategory('Enchancemet')") Enchancemet
-    .tag(@click="filterCategory('Bug')") Bug
-    .tag(@click="filterCategory('Feature')") Feature
+    .tag(@click="filterCategory('ENCHANCEMENT')") Enchancemet
+    .tag(@click="filterCategory('LIVE')") Live
+    .tag(@click="filterCategory('BUG')") Bug
+    .tag(@click="filterCategory('FEATURE')") Feature
   .sidebar__cart.roadmap
     .head
       h3 Roadmap
