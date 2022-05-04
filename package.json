@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client & npm run serve",
+    "client_build": "cd client & npm run build",
     "server": "cd server & nodemon app.js",
     "cls": "cls",
-    "run": "concurrently npm:client npm:server"
+    "start": "concurrently npm:client npm:server",
+    "start_build": "concurrently npm:client_build npm:server"
   },
   "repository": {
     "type": "git",
