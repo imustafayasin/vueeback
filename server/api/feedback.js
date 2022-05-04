@@ -1,17 +1,21 @@
 
+const { default: mongoose } = require("mongoose");
 const database = require("../database/connection");
-database.connect();
+const handleErrors = require("../middleware/handleDbErrors.js");
 
+database.connect();
 
 const { Feedback } = require("../database/models");
 const { Comment } = require("../database/models");
 
 
 const create = (req, res, next) => {
-    if (req.body.USERID && !!req.body.TITLE) {
-        Feedback.create(req.body);
-        res.json({ success: true, message: "Successfuly" });
-    }
+    if (!req.body.USERID) return
+    Feedback.create(req.body, (err, data) => {
+        if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
+        else res.json({ success: true, message: "Successfuly" });
+    });
+
 }
 
 const update = (req, res) => {
@@ -25,6 +29,7 @@ const update = (req, res) => {
 }
 const getByUser = (req, res, next) => {
     if (!req.body.USERID) return
+    console.log(req.body.USERID)
     Feedback.find({ USERID: req.body.USERID }, (err, feedbacks) => {
         if (err) return
         res.json({ success: true, message: "Successfuly", data: feedbacks });
@@ -32,9 +37,10 @@ const getByUser = (req, res, next) => {
 }
 
 const get = (req, res) => {
-    //let { sort, category } = req.body.filter;
+    let { sort, category } = req.body.filter;
+    category = category == "All" ? { $ne: "" } : category
 
-    Feedback.find({}, (err, feedbacks) => {
+    Feedback.find({ CATEGORY: category }, (err, feedbacks) => {
         if (err) return
         res.json({ success: true, message: "Successfuly", data: feedbacks });
     }).populate('USERID').limit(10);
@@ -53,7 +59,7 @@ const getById = (req, res) => {
 
 const softDelete = (req, res) => {
     if (!req.body.USERID || !req.params.id) return
-    Feedback.deleteOne({ _id: req.params.id, USERID: req.userId }, (err, feedback) => {
+    Feedback.deleteOne({ _id: req.params.id, USERID: req.body.USERID }, (err, feedback) => {
         if (err) return
         res.json({ success: true, message: "Successfuly" });
     });

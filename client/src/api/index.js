@@ -17,12 +17,11 @@ const request = (method, path, data) => {
             let { success, message, data, unAuthorized } = result.data;
             if (unAuthorized) location.href = "/login";
             !data ? notification.default(message, success) : "";
-            if (!success) return
+            if (!success) throw result.data;
             return result.data;
         })
         .catch(result => {
-            console.log(result)
-            throw result.response
+            throw result.message
         });
 }
 

@@ -6,7 +6,10 @@
         v-on:sortByCategory="sortCategory"
         :suggestCount="feedbacks?.length"
       />
+      <EmptyState :showButton="false" v-if="!feedbacks?.length" />
+
       <div
+        v-else
         class="feedback-item"
         v-for="feedback in feedbacks"
         :key="feedback._id"
@@ -22,6 +25,7 @@
 import Sidebar from "@/components/Home/Sidebar.vue";
 import AddFeedBack from "@/components/Home/AddFeedback.vue";
 import Feedback from "@/components/Feedback.vue";
+import EmptyState from "@/components/EmptyState.vue";
 
 export default {
   name: "HomeView",
@@ -29,6 +33,7 @@ export default {
     Sidebar,
     AddFeedBack,
     Feedback,
+    EmptyState
   },
   data() {
     return {

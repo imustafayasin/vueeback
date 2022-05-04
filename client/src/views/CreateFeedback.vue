@@ -7,7 +7,7 @@
       >
     </div>
 
-    <div action>
+    <form @submit.prevent="addOrUpdateFeedback(isUpdate)">
       <div v-if="!isUpdate" class="icon">&plus;</div>
       <div v-else class="icon">
         <img src="@/assets/document-editor.png" alt="" />
@@ -18,20 +18,20 @@
         <div class="field">
           <label for="">Feedback Title</label>
           <small>Add a short, descriptiove headline</small>
-          <input type="text" v-model="feedback.TITLE" />
+          <input required type="text" v-model="feedback.TITLE" />
         </div>
         <div class="field">
           <label for="">Category</label>
 
           <small>Choose a category for your feedback</small>
-          <select name="" id="" v-model="feedback.CATEGORY">
+          <select required name="" id="" v-model="feedback.CATEGORY">
+            <option value="" disabled selected>Select an category</option>
             <option value="UX">UX</option>
             <option value="UI">UI</option>
-            <option value="Feature">Feature</option>
-            <option value="Live">Live</option>
-            <option value="Enchancemet">Enchancemet</option>
-            <option value="Bug">Bug</option>
-            <option value="Feature">Feature</option>
+            <option value="LIVE">Live</option>
+            <option value="ENCHANCEMENT">Enchancemet</option>
+            <option value="BUG">Bug</option>
+            <option value="FEATURE">Feature</option>
           </select>
         </div>
         <div class="field">
@@ -45,18 +45,19 @@
             id=""
             cols="30"
             rows="10"
+            required
             v-model="feedback.DETAIL"
           ></textarea>
         </div>
       </div>
       <div class="buttons">
-        <router-link to="/" class="cancel">Cancel</router-link>
-        <button @click="addOrUpdateFeedback(isUpdate)" class="submit">
+        <router-link to="/" class="cancel">Go back</router-link>
+        <button class="submit">
           <span v-if="isUpdate"> Update </span><span v-else> Submit </span>
           Feedback
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -73,9 +74,10 @@ export default {
   methods: {
     ...mapActions(["CREATE_FEEDBACK", "UPDATE_FEEDBACK"]),
     addOrUpdateFeedback(isUpdate) {
+      if (Object.values(this.feedback).every((f) => f === null)) return;
       isUpdate
-        ? this.UPDATE_FEEDBACK(this.feedback)
-        : this.CREATE_FEEDBACK(this.feedback);
+        ? this.UPDATE_FEEDBACK(this.feedback).catch(() => {})
+        : this.CREATE_FEEDBACK(this.feedback).catch(() => {});
     },
   },
   mounted() {
@@ -90,32 +92,21 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.header {
-  display: block;
-  margin-bottom: 6rem;
-  img {
-    width: 12px;
-    margin-right: 10px;
-    transform: rotate(-90deg);
-  }
-  a {
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: #fff;
-  }
-}
+
 .create-feedback {
   max-width: 700px;
   margin: auto;
   display: block;
 }
-div[action] {
+form {
   background: #fff;
   padding: 3rem 2.5rem;
   position: relative;
   .form__title {
     margin: 2rem 0;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
   }
   .icon {
     width: 65px;

@@ -1,15 +1,15 @@
 <template lang="pug">
-div.addComment
+form.addComment(@submit.prevent="addComment")
     label Add comment
-    textarea( placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="5")
+    textarea( required placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="5")
     div.actions
         div.character_counter {{character_count - comment.length}} character left
-        button(@click="addComment") Post comment
+        button Post comment
  
 </template>
 
 <style lang="less" scoped>
-div.addComment {
+.addComment {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
