@@ -1,8 +1,8 @@
 <template lang="pug">
 .home
-  Sidebar(v-on:filterbycategory='filterCategory')
+  <Sidebar v-on:filterByCategory='filterCategory' />
   .content
-    <AddFeedBack v-on:sortbycategory='sortCategory' :suggestcount='feedbacks?.length' />
+    <AddFeedBack v-on:sortByCategory='sortCategory' :suggestcount='feedbacks?.length' />
     <EmptyState :showbutton='false' v-if='!feedbacks?.length' /> 
     .feedback-item(v-else='' v-for='feedback in feedbacks' :key='feedback._id')
       <Feedback :feedback='feedback' />
