@@ -61,6 +61,7 @@ export default {
       overflow-wrap: anywhere;
       overflow: hidden;
       line-height: 34px;
+      font-weight: 600;
     }
     p {
       color: #393e5fd9;
@@ -82,7 +83,7 @@ export default {
       width: min-content;
       border-radius: 15px;
       text-align: center;
-      font-weight: 900;
+      font-weight: 600;
       color: #4660e7;
       margin-top: 10px;
       text-transform: lowercase;
@@ -93,7 +94,7 @@ export default {
     align-items: center;
     gap: 10px;
     font-size: 1.2rem;
-    font-weight: 900;
+    font-weight: 600;
     img {
       width: 20px;
     }

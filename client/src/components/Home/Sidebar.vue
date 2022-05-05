@@ -20,7 +20,7 @@
     .tag(@click="filterCategory('LIVE')") Live
     .tag(@click="filterCategory('BUG')") Bug
     .tag(@click="filterCategory('FEATURE')") Feature
-  .sidebar__cart.roadmap
+  .sidebar__cart.roadmap(disabled)
     .head
       h3 Roadmap
       a(href='#') View
@@ -106,7 +106,7 @@ export default {
         min-width: 50px;
         border-radius: 15px;
         text-align: center;
-        font-weight: 900;
+        font-weight: 600;
         color: #4660e7;
         &.active {
           color: #fff;

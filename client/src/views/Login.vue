@@ -1,5 +1,5 @@
 <template>
-  <div class="register">
+  <div class="login">
     <form @submit.prevent="login" action="">
       <div class="icon">&plus;</div>
       <h2 class="form__title">Login</h2>
@@ -54,7 +54,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.register {
+.login {
   max-width: 700px;
   margin: auto;
   display: block;
@@ -89,24 +89,6 @@ form {
       flex-direction: column;
       gap: 10px;
       margin-bottom: 2rem;
-      label {
-        color: #393e5f;
-        font-size: 1.2rem;
-        font-weight: 700;
-      }
-      small {
-        color: #393e5fbd;
-      }
-      input,
-      select,
-      textarea {
-        border-radius: 0.5rem;
-        background-color: #f7f8fd;
-        font-size: 1rem;
-        padding: 1rem;
-        margin-top: 0.5rem;
-        min-height: 50px;
-      }
     }
   }
   .buttons {

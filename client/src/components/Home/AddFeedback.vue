@@ -59,8 +59,7 @@ export default {
       opacity: 0.8;
     }
     select {
-      margin-left: 10px;
-      font-weight: 100x;
+      border: 0;
       background-color: transparent;
       option {
         padding: 10px;
