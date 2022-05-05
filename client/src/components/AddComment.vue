@@ -1,7 +1,7 @@
 <template lang="pug">
 form.addComment(@submit.prevent="addComment")
     label Add comment
-    textarea( required placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="5")
+    textarea( required placeholder="Type your comment here" v-model="comment" :maxlength="character_count"  cols="30" rows="8")
     div.actions
         div.character_counter {{character_count - comment.length}} character left
         button Post comment
@@ -16,20 +16,8 @@ form.addComment(@submit.prevent="addComment")
   padding: 2rem;
   border-radius: 6px;
   background-color: #fff;
-  label {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
   textarea {
-    border-radius: 0.5rem;
-    background-color: #f7f8fd;
-    line-height: 1.5;
-    font-size: 1rem;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    min-height: 50px;
-    margin-bottom: 1rem;
+    margin: 1rem 0 1.5rem 0;
   }
   .actions {
     display: flex;

@@ -144,18 +144,18 @@
   }
 }
 button.delete {
-  padding: 0px 20px;
-  margin-top: 20px;
-  border: 1px solid #ed2f25;
   --color: #ed2f25;
   --bg: transparent;
+  padding: 0px 20px;
+  margin-top: 20px;
+  border: 1px solid var(--color);
   background-color: var(--bg);
   color: var(--color);
-  height: 40px;
-  line-height: 40px;
-  cursor: pointer;
-  font-weight: 400;
   border-radius: 3px;
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
   &:hover {
     --color: #fff;
     --bg: #ed2f25;
