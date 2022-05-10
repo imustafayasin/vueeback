@@ -13,13 +13,13 @@
     h2 Frontend Mentor
     p Feedback Board
   .sidebar__cart.tags
-    .tag(@click="filterCategory('All')" class='active') All
-    .tag(@click="filterCategory('UI')") UI
-    .tag(@click="filterCategory('UX')") UX
-    .tag(@click="filterCategory('ENCHANCEMENT')") Enchancemet
-    .tag(@click="filterCategory('LIVE')") Live
-    .tag(@click="filterCategory('BUG')") Bug
-    .tag(@click="filterCategory('FEATURE')") Feature
+    .tag(@click="filterCategory('All',$event)" class='active') All
+    .tag(@click="filterCategory('UI',$event)") UI
+    .tag(@click="filterCategory('UX',$event)") UX
+    .tag(@click="filterCategory('ENCHANCEMENT',$event)") Enchancemet
+    .tag(@click="filterCategory('LIVE',$event)") Live
+    .tag(@click="filterCategory('BUG',$event)") Bug
+    .tag(@click="filterCategory('FEATURE',$event)") Feature
   .sidebar__cart.roadmap(disabled)
     .head
       h3 Roadmap
@@ -52,7 +52,9 @@ export default {
       this.$store.dispatch("LOGOUT");
       this.isLogin = false;
     },
-    filterCategory(category) {
+    filterCategory(category, e) {
+      e?.target.parentNode.querySelector(".active")?.classList.remove("active");
+      e?.target.classList.add("active");
       this.$emit("filterByCategory", category);
     },
   },
