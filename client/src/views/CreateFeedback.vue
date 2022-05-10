@@ -114,7 +114,6 @@ form {
       flex-direction: column;
       gap: 10px;
       margin-bottom: 2rem;
-
     }
   }
   .buttons {

@@ -19,7 +19,6 @@ const register = (req, res, next) => {
 const login = (req, res, next) => {
     Identity.findOne(req.body, (err, usr) => {
         if (handleErrors(err?.errors)) return res.json({ success: false, message: handleErrors(err.errors) })
-
         if (usr) {
             const token = jwt.sign({ _id: usr._id }, 'yasin');
             return res.header('Authorization', token).json({ success: true, message: "Successfully logged in", accessToken: token })
