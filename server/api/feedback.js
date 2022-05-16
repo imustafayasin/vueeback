@@ -9,7 +9,7 @@ const { Comment } = require("../database/models");
 
 
 const create = (req, res, next) => {
-    if (!req.body.USERID) return
+    if (!req.body.USER) return
     Feedback.create(req.body, (err, data) => {
         if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
         else res.json({ success: true, message: "Successfuly" });
@@ -27,8 +27,8 @@ const update = (req, res) => {
     }
 }
 const getByUser = (req, res, next) => {
-    if (!req.body.USERID) return
-    Feedback.find({ USERID: req.body.USERID }, (err, feedbacks) => {
+    if (!req.body.USER) return
+    Feedback.find({ USER: req.body.USER }, (err, feedbacks) => {
         if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
         else res.json({ success: true, message: "Successfuly", data: feedbacks });
     });
@@ -41,7 +41,7 @@ const get = (req, res) => {
     Feedback.find({ CATEGORY: category }, (err, feedbacks) => {
         if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
         else res.json({ success: true, message: "Successfuly", data: feedbacks });
-    }).populate('USERID',{PASSWORD:0,EMAIL:0}).limit(10);
+    }).populate('USER', { PASSWORD: 0, EMAIL: 0 }).limit(10);
 }
 
 const getById = (req, res) => {
@@ -50,16 +50,16 @@ const getById = (req, res) => {
         if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
         else {
             Comment.find({ FEEDBACK_ID: feedback.id }, { COMMENT: 1, CREATED_DATE: 1, _id: 1 }, (err, comment) => {
-                res.json({ success: true, message: "Successfuly", data: { data: feedback, ownFeedback: req.body.USERID == feedback.USERID && !!req.body.USERID, comments: comment, currentUserId: req.body.USERID } });
-            }).populate('USERID',{PASSWORD:0,EMAIL:0});
+                res.json({ success: true, message: "Successfuly", data: { data: feedback, ownFeedback: req.body.USER == feedback.USER && !!req.body.USER, comments: comment, currentUserId: req.body.USER } });
+            }).populate('USER', { PASSWORD: 0, EMAIL: 0 });
         }
     });
 }
 
 const softDelete = (req, res) => {
-    if (!req.body.USERID || !req.params.id) return
+    if (!req.body.USER || !req.params.id) return
     let feedbackId = req.params.id;
-    Feedback.deleteOne({ _id: req.params.id, USERID: req.body.USERID }, (err, feedback) => {
+    Feedback.deleteOne({ _id: req.params.id, USER: req.body.USER }, (err, feedback) => {
         if (handleErrors(err?.errors)) res.json({ success: false, message: handleErrors(err.errors) })
         else {
             Comment.deleteMany({ FEEDBACK_ID: feedbackId }, (err, comment) => { });

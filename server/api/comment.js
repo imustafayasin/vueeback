@@ -17,8 +17,8 @@ const create = (req, res) => {
 };
 
 const softDelete = (req, res) => {
-    if (!req.body.USERID || !req.body.id) return
-    Comment.findOneAndDelete({ USERID: req.body.USERID, _id: req.body.id }, (err, comment) => {
+    if (!req.body.USER || !req.body.id) return
+    Comment.findOneAndDelete({ USER: req.body.USER, _id: req.body.id }, (err, comment) => {
         if (handleErrors(err?.errors)) res.json({ message: handleErrors(err?.errors), success: false, })
         else res.json({ message: "Success", success: true })
     })
