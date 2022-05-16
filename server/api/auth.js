@@ -28,7 +28,7 @@ const login = (req, res, next) => {
     });
 };
 const getAuthUser = (req, res) => {
-    Identity.findOne({ _id: req.body.USERID }, (err, usr) => {
+    Identity.findOne({ _id: req.body.USER }, (err, usr) => {
         if (handleErrors(err?.errors)) return res.json({ success: false, message: handleErrors(err.errors) })
 
         if (usr) {
