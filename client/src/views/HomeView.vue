@@ -1,13 +1,12 @@
-<template>
-  <div class="home">
-    <Sidebar />
-    <div class="content">
-      <AddFeedBack />
-      <template v-for="feedback in feedbacks" v-bind:key="feedback.title">
-        <Feedback @click="feedbackDetail(feedback.id)" :feedback="feedback" />
-      </template>
-    </div>
-  </div>
+<template lang="pug">
+.home
+  <Sidebar v-on:filterByCategory='filterCategory' />
+  .content
+    <AddFeedBack v-on:sortByCategory='sortCategory' :suggestcount='feedbacks?.length' />
+    <EmptyState :showbutton='false' v-if='!feedbacks?.length' /> 
+    .feedback-item(v-else='' v-for='feedback in feedbacks' :key='feedback._id')
+      <Feedback :feedback='feedback' />
+
 </template>
 
 <script>
@@ -15,6 +14,7 @@
 import Sidebar from "@/components/Home/Sidebar.vue";
 import AddFeedBack from "@/components/Home/AddFeedback.vue";
 import Feedback from "@/components/Feedback.vue";
+import EmptyState from "@/components/EmptyState.vue";
 
 export default {
   name: "HomeView",
@@ -22,20 +22,32 @@ export default {
     Sidebar,
     AddFeedBack,
     Feedback,
+    EmptyState,
   },
   data() {
     return {
-      feedbacks: null,
+      feedbacks: [],
     };
   },
   methods: {
-    feedbackDetail(id) {
-      this.$router.push({path: `/detail/${Number(id)}`});
+    fetchFeedbacks(sort, category) {
+      let data = {
+        sort: sort ?? "new",
+        category: category ?? "All",
+      };
+      this.$store
+        .dispatch("FETCH_FEEDBACKS", data)
+        .then(() => (this.feedbacks = this.$store.state.feedbacks));
+    },
+    sortCategory(sort) {
+      this.fetchFeedbacks(sort, null);
+    },
+    filterCategory(category) {
+      this.fetchFeedbacks("asd", category);
     },
   },
   mounted() {
-    this.$store.dispatch("FETCH_FEEDBACKS");
-    this.feedbacks = this.$store.state.feedbacks;
+    this.fetchFeedbacks();
   },
 };
 </script>
@@ -43,5 +55,10 @@ export default {
 .home {
   display: flex;
   gap: 30px;
+}
+.feedback-item {
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 </style>

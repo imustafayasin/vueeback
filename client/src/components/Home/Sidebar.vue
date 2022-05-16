@@ -1,17 +1,26 @@
 <template lang="pug">
  
 .sidebar
+  .sidebar__cart.zero
+    div(v-if="!isLogin")
+      router-link(to="/login") Login
+      router-link(to="/register") Register
+    div(v-else)
+      router-link(to="/account") My Account
+      router-link(to="/myfeedbacks") My Feedbacks
+      a(href="/logout" @click="logout($event)") Log out
   .sidebar__cart.one
     h2 Frontend Mentor
     p Feedback Board
   .sidebar__cart.tags
-    .tag All
-    .tag UI
-    .tag UX
-    .tag Enchancemet
-    .tag Bug
-    .tag Feature
-  .sidebar__cart.roadmap
+    .tag(@click="filterCategory('All',$event)" class='active') All
+    .tag(@click="filterCategory('UI',$event)") UI
+    .tag(@click="filterCategory('UX',$event)") UX
+    .tag(@click="filterCategory('ENCHANCEMENT',$event)") Enchancemet
+    .tag(@click="filterCategory('LIVE',$event)") Live
+    .tag(@click="filterCategory('BUG',$event)") Bug
+    .tag(@click="filterCategory('FEATURE',$event)") Feature
+  .sidebar__cart.roadmap(disabled)
     .head
       h3 Roadmap
       a(href='#') View
@@ -37,12 +46,36 @@ export default {
   props: {
     msg: String,
   },
+  methods: {
+    logout(e) {
+      e.preventDefault();
+      this.$store.dispatch("LOGOUT");
+      this.isLogin = false;
+    },
+    filterCategory(category, e) {
+      e?.target.parentNode.querySelector(".active")?.classList.remove("active");
+      e?.target.classList.add("active");
+      this.$emit("filterByCategory", category);
+    },
+  },
+  data() {
+    return {
+      isLogin: this.$store.getters.isAuth,
+    };
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .sidebar {
+  a {
+    display: block;
+    margin: 15px 0;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .sidebar__cart {
     width: 280px;
     min-height: 150px;
@@ -75,7 +108,7 @@ export default {
         min-width: 50px;
         border-radius: 15px;
         text-align: center;
-        font-weight: 900;
+        font-weight: 600;
         color: #4660e7;
         &.active {
           color: #fff;

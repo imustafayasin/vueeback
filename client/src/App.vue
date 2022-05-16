@@ -1,7 +1,6 @@
-<template>
-  <div class="container">
-    <router-view />
-  </div>
+<template lang="pug">
+.container
+ <router-view />
 </template>
 
 <style lang="less">

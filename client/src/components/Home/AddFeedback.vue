@@ -2,13 +2,12 @@
 .addFeedBack
   .suggestions
       img(src="@/assets/bulb.png")
-      .count 6 Suggestion
+      .count {{suggestCount}} Suggestion
   .sort
     span Sort by:
-    select
-      option Most Upvotes
-      option Most Popular
-      option Newest
+    select(@change="sort()" v-model="sortType")
+      option(value="new") Newest
+      option(value="popular") Most Popular
   router-link(to="/create",class="add")
     button &plus; Add Feedback
 </template>
@@ -16,6 +15,21 @@
 <script>
 export default {
   name: "AddFeedBack",
+  props: {
+    suggestCount: Number,
+  },
+  data() {
+    return {
+      sortType: "new",
+    };
+  },
+  methods: {
+    sort() {
+      console.log(this.sortType);
+      if (!this.sortType) return;
+      this.$emit("sortByCategory", this.sortType);
+    },
+  },
 };
 </script>
 
@@ -45,8 +59,7 @@ export default {
       opacity: 0.8;
     }
     select {
-      margin-left: 10px;
-      font-weight: 100x;
+      border: 0;
       background-color: transparent;
       option {
         padding: 10px;
