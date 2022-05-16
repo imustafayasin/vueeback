@@ -46,7 +46,6 @@ export default createStore({
   },
   actions: {
 
-    //parametleri obje içinde gönder data{}
     REGISTER({ state }, { NAME, LASTNAME, EMAIL, PASSWORD }) {
       return api.auth.register(NAME, LASTNAME, EMAIL, PASSWORD).then(() => this.dispatch("LOGIN", { EMAIL, PASSWORD }))
     },
