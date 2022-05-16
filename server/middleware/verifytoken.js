@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
             res.json({ success: false, message: "Invalid token", unAuthorized: true });
             return
         }
-        req.body.USERID = decoed._id;
+        req.body.USER = decoed._id;
         next()
     })
 }

@@ -56,7 +56,7 @@ var Feedback = mongoose.model("Feedback", new Schema({
     },
     DETAIL: { type: String, min: 1, max: 255, required: true },
     VOTE: String,
-    USERID: { type: mongoose.Schema.Types.ObjectId, ref: 'Identity', required: true },
+    USER: { type: mongoose.Schema.Types.ObjectId, ref: 'Identity', required: true },
     COMMENTS: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
@@ -64,7 +64,7 @@ var Feedback = mongoose.model("Feedback", new Schema({
 }))
 
 var commentSchema = new Schema({
-    USERID: { type: mongoose.Schema.Types.ObjectId, ref: 'Identity', required: true },
+    USER: { type: mongoose.Schema.Types.ObjectId, ref: 'Identity', required: true },
     COMMENT: { type: String, min: 1, max: 255, required: true },
     CREATED_DATE: { type: String, default: Date },
     FEEDBACK_ID: String,

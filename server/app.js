@@ -14,7 +14,7 @@ const includeUserID = (req, res, next) => {
     const authorization = req.header('Authorization');
     const token = authorization?.split("r ").pop();
     jwt.verify(token, 'yasin', (err, decoed) => {
-        req.body.USERID = decoed?._id;
+        req.body.USER = decoed?._id;
         next()
     })
 }

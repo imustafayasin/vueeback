@@ -21,21 +21,21 @@
         <div
           class="comment"
           v-for="data in feedback?.comments"
-          v-bind:key="data.USERID._id"
+          v-bind:key="data.USER._id"
         >
           <div class="user_image"></div>
           <div class="content">
             <button class="reply_comment">Reply</button>
             <button
-              v-if="feedback.currentUserId == data.USERID._id"
+              v-if="feedback.currentUserId == data.USER._id"
               @click="deleteComment(data._id)"
               class="remove_comment"
             >
               Remove
             </button>
             <div class="user">
-              <b>{{ data.USERID.NAME + " " + data.USERID.LASTNAME }}</b>
-              <p class="mute">@{{ data.USERID.USERNAME }}</p>
+              <b>{{ data.USER.NAME + " " + data.USER.LASTNAME }}</b>
+              <p class="mute">@{{ data.USER.USERNAME }}</p>
             </div>
             <div class="message">
               <p>
