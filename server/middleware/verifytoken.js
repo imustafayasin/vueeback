@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config({ path: '../.env' })
+
 
 function verifyToken(req, res, next) {
     const authorization = req.header('Authorization');
@@ -8,7 +10,7 @@ function verifyToken(req, res, next) {
     }
 
     const token = authorization.split("r ").pop();
-    jwt.verify(token, 'yasin', (err, decoed) => {
+    jwt.verify(token, process.env.JTWHASH, (err, decoed) => {
         if (err) {
             res.json({ success: false, message: "Invalid token", unAuthorized: true });
             return

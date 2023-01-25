@@ -9,11 +9,12 @@ const jwt = require("jsonwebtoken")
 const app = express();
 app.use(cors())
 app.use(express.json());
+require('dotenv').config({ path: '../.env' })
 
 const includeUserID = (req, res, next) => {
     const authorization = req.header('Authorization');
     const token = authorization?.split("r ").pop();
-    jwt.verify(token, 'yasin', (err, decoed) => {
+    jwt.verify(token, process.env.JTWHASH, (err, decoed) => {
         req.body.USER = decoed?._id;
         next()
     })
@@ -38,6 +39,6 @@ app.post('/feedback/addComment', [nullCheck, verifyToken], comment.create)
 app.post('/feedback/deleteComment', [nullCheck, verifyToken], comment.softDelete)
 
 
-app.listen(3000, function () {
-    console.log("running of 3000", "http://localhost:3000");
+app.listen(process.env.BACKEND_PORT, function () {
+    console.log("running port: ", process.env.BACKEND_PORT);
 });

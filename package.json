@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client & npm run serve",
     "server": "cd server & nodemon app.js",
+    "install": "concurrently cd client & npm install cd server & npm install",
     "start": "concurrently npm:client npm:server"
   },
   "repository": {
@@ -20,6 +21,9 @@
   },
   "homepage": "https://github.com/imustafayasin/vueeback#readme",
   "dependencies": {
-    "concurrently": "^7.1.0"
+    "cd": "^0.3.3",
+    "concurrently": "^7.1.0",
+    "dotenv": "^16.0.3",
+    "server": "^1.0.38"
   }
 }
