@@ -9,7 +9,8 @@
     "server": "cd server & nodemon app.js",
     "clientPackages": "cd client & npm install",
     "serverPackages": "cd server & npm install",
-    "install": "concurrently npm:clientPackages npm:serverPackages",
+    "npmInstall": "npm install",
+    "install": "concurrently npm:npmInstall npm:clientPackages npm:serverPackages",
     "start": "concurrently npm:client npm:server"
   },
   "repository": {
