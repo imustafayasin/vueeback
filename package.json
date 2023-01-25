@@ -10,7 +10,7 @@
     "clientPackages": "cd client & npm install",
     "serverPackages": "cd server & npm install",
     "npmInstall": "npm install",
-    "install": "concurrently npm:npmInstall npm:clientPackages npm:serverPackages",
+    "install_packages": "concurrently npm:npmInstall npm:clientPackages npm:serverPackages",
     "start": "concurrently npm:client npm:server"
   },
   "repository": {
