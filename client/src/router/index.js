@@ -52,12 +52,7 @@ const routes = [
     name: 'My Feedback',
     beforeEnter: requireAuth,
     component: () => import('../views/MyFeedbacks.vue')
-  },
-  {
-    path: '/:catchAll(.*)',
-    name: 'My Feedback',
-    component: HomeView
-  },
+  }
 ]
 
 const router = createRouter({
