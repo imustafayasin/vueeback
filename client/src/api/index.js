@@ -1,6 +1,6 @@
 const axios = require('axios');
 const notification = require('../utils/notification.js');
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = location.href.includes('localhost') ? "http://localhost:3000" : location.origin;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 export const setAuthInHeader = token => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token ?? localStorage.getItem('token')}`
