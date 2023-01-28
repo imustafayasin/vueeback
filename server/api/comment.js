@@ -10,7 +10,7 @@ const create = (req, res) => {
 
     Comment.create(req.body, (err, comment) => {
         if (handleErrors(err?.errors)) res.json({ message: handleErrors(err?.errors), success: false, comment: comment })
-        Feedback.findByIdAndUpdate(req.body.FEEDBACK_ID, { $push: { "COMMENTS": comment.id } }, { new: true, upsert: true }, (err, data) => {
+        Feedback.findByIdAndUpdate(req.body.FEEDBACK_ID, { $push: { "COMMENTS": comment?.id } }, { new: true, upsert: true }, (err, data) => {
         })
         res.json({ message: "Success", success: true, comment: comment })
     })

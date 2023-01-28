@@ -4,7 +4,7 @@ database.connect();
 const jwt = require("jsonwebtoken");
 const { Identity } = require("../database/models");
 const handleErrors = require("../middleware/handleDbErrors.js");
-
+require('dotenv').config({ path: '../.env' })
 
 const register = (req, res, next) => {
     req.body.USERNAME = req.body.EMAIL.split("@").shift();
@@ -20,7 +20,7 @@ const login = (req, res, next) => {
     Identity.findOne(req.body, (err, usr) => {
         if (handleErrors(err?.errors)) return res.json({ success: false, message: handleErrors(err.errors) })
         if (usr) {
-            const token = jwt.sign({ _id: usr._id }, 'yasin');
+            const token = jwt.sign({ _id: usr._id }, process.env.JTWHASH);
             return res.header('Authorization', token).json({ success: true, message: "Successfully logged in", accessToken: token })
         }
 

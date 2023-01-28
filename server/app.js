@@ -26,9 +26,8 @@ app.use(express.static(path.join(__dirname, 'dist')))
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './dist/index.html'))
 })
-app.get('*', (req, res) => {
-    res.redirect('/')
-})
+
+
 
 app.post('/login', nullCheck, auth.login)
 app.post('/register', nullCheck, auth.register)
@@ -44,6 +43,9 @@ app.get('/feedback/delete/:id', [nullCheck, verifyToken], feedback.softDelete)
 app.post('/feedback/addComment', [nullCheck, verifyToken], comment.create)
 app.post('/feedback/deleteComment', [nullCheck, verifyToken], comment.softDelete)
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './dist/index.html'))
+})
 
 app.listen(process.env.BACKEND_PORT, function () {
     console.log("running port: ", process.env.BACKEND_PORT);
