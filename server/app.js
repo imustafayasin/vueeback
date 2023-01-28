@@ -20,7 +20,7 @@ const includeUserID = (req, res, next) => {
     })
 }
 
-app.get('/', verifyToken, (req, res) => {
+app.get('/', (req, res) => {
     res.json({ message: "Hi there", as: `başarılı id'niz ${req.userId}` })
 })
 
