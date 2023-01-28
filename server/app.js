@@ -6,6 +6,7 @@ const comment = require('./api/comment');
 const verifyToken = require('./middleware/verifytoken.js');
 const nullCheck = require('./middleware/nullCheck.js');
 const jwt = require("jsonwebtoken")
+const path = require("path")
 const app = express();
 app.use(cors())
 app.use(express.json());
@@ -20,8 +21,13 @@ const includeUserID = (req, res, next) => {
     })
 }
 
+app.use(express.static('dist'))
+
 app.get('/', (req, res) => {
-    res.json({ message: "Hi there", as: `başarılı id'niz ${req.userId}` })
+    res.sendFile(path.join(__dirname, 'dist/index.html'))
+})
+app.get('*', (req, res) => {
+    res.redirect('/')
 })
 
 app.post('/login', nullCheck, auth.login)
